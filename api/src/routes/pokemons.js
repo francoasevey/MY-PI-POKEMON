@@ -23,7 +23,7 @@ router.get('/', async (req,res, next) =>{
         let pokemonName = await pokemons.filter(el => el.name.toLowerCase().includes(name.toLowerCase()))
         pokemonName.length ? 
         res.status(200).send(pokemonName):
-        res.status(404).send('country not found');//en caso de que no se encuentre por query
+        res.status(404).send('pokemon not found');//en caso de que no se encuentre por query
     }
     else if(pokemons) {
         res.status(200).send(pokemons)
