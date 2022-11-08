@@ -3,22 +3,32 @@ const { Pokemon, Type} = require('../db');
 
 const getApiInfo = async () =>{
     try {
-        const apiUrl = await  axios.get("https://pokeapi.co/api/v2/pokemon");
-        const apiInfo = await apiUrl.data.results.map(el =>{
-            return{
-                id: el.id,
-                name: el.name,
-                hp: el.stats[0].base_stat,
-                attack: el.stats[1].base_stat,
-                defense: el.stats[2].base_stat,
-                speed: el.stats[5].base_stat,
-                height: el.height,
-                weight: el.weight,
-                imageDefault: el.sprites.other.home.front_default,
-                types: el.types.map((e) => e.type.name),
-            }
+        const ApiUrl = await axios
+        .get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=151")
+        .then((data) => {
+          return data.data.results;
         })
-        return apiInfo;
+        .then((data) => {
+          return Promise.all(data.map((el) => axios.get(el.url))); //entro a cada elemento url y le hago un get
+        })
+        .then((data) => {
+          return data.map((el) => el.data); // guardo todo la informacion de cada pokemon con todos su datos en mi variable Api
+        });
+      const apiInfo = ApiUrl.map((el) => {
+        return {
+          id: el.id,
+          name: el.name,
+          hp: el.stats[0].base_stat,
+          attack: el.stats[1].base_stat,
+          defense: el.stats[2].base_stat,
+          speed: el.stats[5].base_stat,
+          height: el.height,
+          weight: el.weight,
+          imageDefault: el.sprites.other.home.front_default,
+          types: el.types.map((e) => e.type.name),
+        };
+      });
+      return apiInfo;
     } catch (error) {
         res.status(404).send('Fetching the data from the API failed');
     }
