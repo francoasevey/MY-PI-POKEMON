@@ -1,17 +1,17 @@
 const express = require("express");
+const axios = require('axios');
+
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
+const { GetTypes } = require("../controllers/GetTypes")
+
 const router = express.Router();
-const { Pokemon, Type} = require('../db');
+//const { Pokemon, Type} = require('../db');
 
 router.get("/", async (req, res) => {
     try {
-       const types = await Type.findAll({
-        include: {
-            model: Pokemon, 
-            attributes: ["id", "name"]},
-       });
-       return res.json(types)
+      const allTypes = await GetTypes();
+    res.send(allTypes);
        
     } catch (error) {
        res.status(404).send('failure to load types')

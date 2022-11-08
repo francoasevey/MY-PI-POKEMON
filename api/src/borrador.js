@@ -32,4 +32,17 @@ const getApiInfo = async () =>{
         console.log(error);
       }
 };
+
+const getApiInfoType = async () => {
+   const apiUrl = await axios.get(`https://pokeapi.co/api/v2/type`);
+   const apiInfo = await apiUrl.data.results.map(e => {
+       return{
+           id : e.id,
+           name: e.name,
+       };
+   });
+   await Type.bulkCreate(apiInfo);
+return apiInfo;
+};
+
 */

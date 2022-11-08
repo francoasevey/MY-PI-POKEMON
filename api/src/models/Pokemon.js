@@ -32,7 +32,7 @@ module.exports = (sequelize) => {
     weight: {
       type: DataTypes.INTEGER,
     },
-    imageDefault: {
+    image: {
       type: DataTypes.STRING,
     },
     created: {
