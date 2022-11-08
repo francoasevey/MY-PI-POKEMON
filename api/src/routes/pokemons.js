@@ -94,10 +94,10 @@ router.post('/',async (req,res, next) =>{
 
     let pokemonDb = await Type.findAll({ where: { name: types } })
     PokemonCreated.addType(pokemonDb)
-    res.send('creado!')
+    res.send('successfully created pokemon!')
 }
 } catch (error) {
-    res.status(404).send('falloOO!')
+    res.status(404).send('Failed to create pokemon!')
 }
 });
 
