@@ -1,0 +1,107 @@
+.fondo{
+    background-image: url("./pokemon-wallpapers-22.jpg");
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    position:fixed 
+}
+.texto{
+    position: absolute;
+    top: 100px;;
+    right: 450px;
+    color: rgb(10, 10, 10);
+    text-shadow: rgb(241, 240, 231) 0 0.0em 0.60em;
+}
+.button {
+    padding: 5em 5em 2em 5em;
+    border-radius: 50px;
+    cursor: pointer;
+    outline: none;
+    background-image: url('../LandingPage/home.png');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border-color: #0313f8;
+    background-color: #ecf803;
+}
+.button:hover {
+  background-color: rgb(255, 247, 0);
+  color:  #0313f8;
+  transition-delay: 0.2s;
+  transition: 0.8s;
+  transform: scale(1.05) ;
+  box-shadow: 0 0 30px #ffff00 ;
+  transition-delay: .1s;
+}
+.icon{
+  padding-top:0px;
+}
+.image {
+  flex-direction: row;
+  width: 6rem; 
+  height: 6rem;
+  align-items: center;
+  border-width: 0.5rem;
+  border-color: #faf8f7;
+  border: 2px;
+  border-radius: 20px;
+  transition: transform .5s;
+  margin-top: 23rem;
+  margin-bottom: 2rem;
+  left: 18px;
+  background-color: transparent ;
+  text-decoration: none;
+  position: absolute;
+  position: relative;
+  
+}
+.imagetwo {
+    flex-direction: row;
+    width: 8rem; 
+    height: 6rem;
+    align-items: center;
+    border-width: 0.5rem;
+    border-color: #faf8f7;
+    border: 2px;
+    border-radius: 20px;
+    transition: transform .5s;
+    margin-top: 23rem;
+    margin-bottom: 2rem;
+    left: 23px;
+    background-color: transparent ;
+    text-decoration: none;
+    position: absolute;
+    position: relative;
+    
+  }
+.image:hover{
+  transform: scale(1.05) ;
+  background:#fcfc00;
+  box-shadow: 0 0 30px #0720ff ;
+  transition-delay: .1s;
+  color: rgb(255, 3, 3);
+  transition: 0.2s;
+}
+.imagetwo:hover{
+    transform: scale(1.05) ;
+    background:#fcfc00;
+    box-shadow: 0 0 30px #0720ff ;
+    transition-delay: .1s;
+    color: rgb(255, 3, 3);
+    transition: 0.2s;
+  }
+@media(max-width: 420px){
+  .texto{
+      left: 120px;
+      margin-top: -90px;
+  }
+  .button{
+    margin-top: -5px;
+  }
+  .image{
+    left: 30px;
+  }
+}
