@@ -1,0 +1,10 @@
+.button {
+    padding: 1.5em 5em 2em 3em;
+    border-radius: 45px;
+    cursor: pointer;
+    outline: none;
+    background-image: url('../NavBar/logo.png');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
