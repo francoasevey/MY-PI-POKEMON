@@ -116,4 +116,51 @@ router.delete("/delete/:id", async (req, res) => {
     }
   });
 
+  router.put("/modification/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const {
+        name,
+        hp,
+        attack,
+        defense,
+        speed,
+        height,
+        weight,
+        image,
+        types,
+        created
+      } = req.body;
+      if (!name || !image || !hp || !attack || !defense ||!speed || !height || !weight || !types) {
+        res.status(404).send('complete all the data');
+      } else {
+
+          const findPokemon = await Pokemon.findByPk(id);
+          await findPokemon.update(
+            {
+                name,
+                hp,
+                attack,
+                defense,
+                speed,
+                height,
+                weight,
+                image,
+                created
+            },
+            { where: { id: id } }
+          );
+          const typeDB = await Type.findAll({
+            where: { name: types },
+          });
+  
+          await findPokemon.setTypes(typeDB);
+          res.status(200).send("successfully modified pokemon!");
+      }
+    } catch (error) {
+        res.status(404).send('failed to modified pokemon!')
+    }
+  });
+  
+
 module.exports = router;
