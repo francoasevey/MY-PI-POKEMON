@@ -101,4 +101,19 @@ router.post('/',async (req,res, next) =>{
 }
 });
 
+router.delete("/delete/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+      const Delete = await Pokemon.findByPk(id);
+      if (!Delete) {
+        res.status(400).send("The pokemon you want to eliminate does not exist");
+      } else {
+        Delete.destroy();
+        return res.status(200).send("pokemon eliminated successfully");
+      }
+    } catch (error) {
+        res.status(404).send('failed to delete pokemon!')
+    }
+  });
+
 module.exports = router;
