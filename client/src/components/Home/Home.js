@@ -29,6 +29,7 @@ export default function Home(){
                           name={el.name}
                           image={el.image? el.image: el.image}
                           types={el.types}
+                          created={el.created}
                           key={el.id}
                             />
                             </Link>
