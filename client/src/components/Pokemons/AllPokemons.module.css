@@ -1,0 +1,13 @@
+.cards{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: stretch;
+     justify-content: center;
+    height: 60vh;
+    overflow: auto;
+    position: absolute;
+    left: 160px;
+}
