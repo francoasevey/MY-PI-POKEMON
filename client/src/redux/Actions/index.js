@@ -3,7 +3,8 @@ import{
     GET_ALL_POKEMONS,
     GET_TYPES,
     GET_NAME_POKEMON,
-    FILTER_CREATED
+    FILTER_CREATED,
+    FILTER_BY_TYPES
 } from './TypeActions'
 
 export function getPokemons(){
@@ -52,6 +53,13 @@ export function filterCreated(payload){
     // console.log(payload)
      return{
          type: FILTER_CREATED,
+         payload
+     }
+ }
+ export function filterType(payload){
+    // console.log(payload)
+     return{
+         type: FILTER_BY_TYPES,
          payload
      }
  }

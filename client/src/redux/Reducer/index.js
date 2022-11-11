@@ -2,7 +2,8 @@ import{
     GET_ALL_POKEMONS,
     GET_TYPES,
     GET_NAME_POKEMON,
-    FILTER_CREATED
+    FILTER_CREATED,
+    FILTER_BY_TYPES
 } from '../Actions/TypeActions'
 
 const initialState = {
@@ -38,6 +39,14 @@ function rootReducer(state = initialState, action){
                 ...state,
                 pokemons:  createdFilter
                 } 
+                case FILTER_BY_TYPES:
+                    const type = state.AllPokemons
+                    const typesFilter = action.payload === 'none' ? type :
+                    type.filter(el => el.types.includes(action.payload) || el.types.map((e) => e.name).includes(action.payload));
+                    return {
+                        ...state,
+                        pokemons: typesFilter
+                    }
         default:
             return state
     }

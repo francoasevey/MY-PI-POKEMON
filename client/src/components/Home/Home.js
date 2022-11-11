@@ -8,6 +8,7 @@ import SearchBar from "../SearchBar/SearchBar";
 //import styles from "../Home/Home.module.css";
 import Pokemons from "../Pokemons/AllPokemons";
 import FilterApiDb from "../Filter/FilterApiDb";
+import FilterType from "../Filter/FilterType";
 
 export default function Home(){
     const dispatch = useDispatch()
@@ -75,6 +76,7 @@ export default function Home(){
             <div>
             <SearchBar setToFirstPage={setToFirstPage}/>
             <FilterApiDb setToFirstPage={setToFirstPage}/>
+            <FilterType setToFirstPage={setToFirstPage}/>
             </div>
             <Paginate
             handlePrev={handlePrev}

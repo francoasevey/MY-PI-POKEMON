@@ -17,7 +17,6 @@ const FilterApiDb = ({ setToFirstPage}) => {
         <div className={styles.selects}>
         <select className={styles.Filter} onChange={(e) => handleFilterCreated(e)}>
                 <option value='All'>Filter by API/DB:</option>
-                <option value= 'All'>ALL</option>
                 <option value= 'created'>DB</option>
                 <option value= 'api'>API</option>
         </select>
