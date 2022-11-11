@@ -11,6 +11,7 @@ import FilterApiDb from "../Filter/FilterApiDb";
 import FilterType from "../Filter/FilterType";
 import FilterABC from "../Filter/FilterABC";
 import FilterByAttack from "../Filter/FilterByAttack";
+import FilterByDefense from "../Filter/FilterByDefense";
 
 export default function Home(){
     const dispatch = useDispatch()
@@ -83,6 +84,8 @@ export default function Home(){
             <FilterType setToFirstPage={setToFirstPage}/>
             <FilterABC setToFirstPage={setToFirstPage} setOrder={setOrder}/>
             <FilterByAttack setToFirstPage={setToFirstPage} setOrder={setOrder}/>
+            <FilterByDefense setToFirstPage={setToFirstPage} setOrder={setOrder}/>
+
             </div>
             <Paginate
             handlePrev={handlePrev}

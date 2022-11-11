@@ -6,7 +6,8 @@ import{
     FILTER_CREATED,
     FILTER_BY_TYPES,
     FILTER_ABC,
-    ORDEN_BY_ATTACK
+    ORDEN_BY_ATTACK,
+    ORDEN_BY_DEFENSE
 } from './TypeActions'
 
 export function getPokemons(){
@@ -74,6 +75,12 @@ export function filterCreated(payload){
  export function orderByAttack(payload){
     return({
         type: ORDEN_BY_ATTACK,
+        payload
+    })
+}
+export function orderByDefense(payload){
+    return({
+        type: ORDEN_BY_DEFENSE,
         payload
     })
 }
