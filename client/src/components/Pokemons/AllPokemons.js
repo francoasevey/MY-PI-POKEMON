@@ -4,21 +4,21 @@ import Loader from '../Loader/Loader'
 import Sections from "../Pokemons/AllPokemons.module.css";
 import { useSelector } from "react-redux";
 
-const Pokemons = ({ data }) => {
+const Pokemons = ({ pokemon }) => {
   const [loader, setLoader] = useState(false);
   const AllPokemons = useSelector((state) => state.pokemons);
 
   useEffect(() => {
-    if (data.length < 1) {
+    if (pokemon.length < 1) {
       setLoader(true);
       setTimeout(() => {
         setLoader(false);
       }, 5000);
     } else setLoader(false);
-  }, [data.length]);
+  }, [pokemon.length]);
 
-  if (data.length === 0 && AllPokemons.length !== 0) {
-    data = AllPokemons;
+  if (pokemon.length === 0 && AllPokemons.length !== 0) {
+    pokemon = AllPokemons;
   }
 
   const stylee = { color: "#fff", marginTop: "17rem" };
@@ -26,13 +26,13 @@ const Pokemons = ({ data }) => {
   return (
     <section id={"Section"} className={Sections.SectionCoutriesLoad}>
       {loader && <Loader />}
-      {data.length === 0 && !loader && (
-        <h1 style={stylee}>No se Encontró el Pais</h1>
+      {pokemon.length === 0 && !loader && (
+        <h1 style={stylee}>POKEMON NOT FOUND!</h1>
       )}
     <div className={Sections.cards}>
 
-      {data.length &&
-        data.map((el) => (
+      {pokemon.length &&
+        pokemon.map((el) => (
           <Card
           id={el.id} 
           name={el.name}
@@ -48,7 +48,3 @@ const Pokemons = ({ data }) => {
 };
 
 export default Pokemons;
-
-// jinna loves the music but , her friend don't like the music
-
-// jina and her boyfriend , decide to go on a trip to Canada but his boyfriend prefer to go to Mexico

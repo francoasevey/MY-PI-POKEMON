@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "../Paginate/Paginate.module.css";
 
-const Paginate = ({currentPage,handlePrev,handleNext,dataLength,paginate,next,prev}) => {
+const Paginate = ({currentPage,handlePrev,handleNext,pokemonLength,paginate,next,prev}) => {
   const pageNumbers = [];
-  let longitud = Math.ceil(dataLength / 10);
+  let Pokelongitud = Math.ceil(pokemonLength / 10);
 
-  for (let i = 1; i <= longitud; i++) {
+  for (let i = 1; i <= Pokelongitud; i++) {
     pageNumbers.push(i);
   }
 

@@ -9,9 +9,9 @@ import Pokemons from "../Pokemons/AllPokemons";
 
 export default function Home(){
     const dispatch = useDispatch()
-    const data = useSelector ((state) => state.pokemons);
+    const pokemon = useSelector ((state) => state.pokemons);
     const [currentPage, setCurrentPage] = useState(1);
-    const [countryPerPage] = useState(10);
+    const [pokemonPerPage] = useState(10);
     const [next, setNext] = useState(true);
     const [prev, setPrev] = useState(true);
     useEffect(() => {
@@ -21,19 +21,18 @@ export default function Home(){
         dispatch(getTypes())
     },[dispatch])
 
-    const indexOfLastCountries = currentPage * countryPerPage;
-  const indexOfFirstCountries = indexOfLastCountries - countryPerPage; //* 10 - 10 = 0 / 20 - 10, etc etc
-  let currentCountries;
+    const indexOfLastPokemon = currentPage * pokemonPerPage;
+  const indexOfFirstCountries = indexOfLastPokemon - pokemonPerPage;
+  let currentPokemons;
   if (currentPage === 1) {
-    currentCountries = data.slice(
-      indexOfFirstCountries, //
-      indexOfLastCountries - 1 //
-    ); // ? 40, 49 = [...,    ,...] * [1  ...   9]
+    currentPokemons = pokemon.slice(
+      indexOfFirstCountries,
+      indexOfLastPokemon - 1
+    );
   } else {
-    currentCountries = data.slice(indexOfFirstCountries, indexOfLastCountries); // ? 40, 50 = [...,    ,...] [40  ...   50]
+    currentPokemons = pokemon.slice(indexOfFirstCountries, indexOfLastPokemon);
   }
   const paginate = (e, pageNumber) => {
-    // e.preventDefault();
     setCurrentPage(pageNumber);
   };
 
@@ -44,9 +43,9 @@ export default function Home(){
   useEffect(() => {
     if (currentPage === 1) setPrev(false);
     else setPrev(true);
-    if (currentPage === Math.ceil(data.length/10)) setNext(false);
+    if (currentPage === Math.ceil(pokemon.length/10)) setNext(false);
     else setNext(true);
-  }, [currentPage, data.length]);
+  }, [currentPage, pokemon.length]);
 
   const handlePrev = () => {
     if (currentPage !== 1) {
@@ -58,7 +57,7 @@ export default function Home(){
     }
   };
   const handleNext = () => {
-    if (currentPage < data.length / 10) {
+    if (currentPage < pokemon.length / 10) {
       setNext(true);
       setCurrentPage(currentPage + 1);
     } else {
@@ -71,19 +70,18 @@ export default function Home(){
     return(
         <div>
             <NavBar/>
-            <h1>estas en el Home</h1>
             <Paginate
-        handlePrev={handlePrev}
-        handleNext={handleNext}
-        countryPerPage={countryPerPage}
-        dataLength={data.length}
-        paginate={paginate}
-        next={next}
-        prev={prev}
-        currentPage={currentPage}
-      />
+            handlePrev={handlePrev}
+            handleNext={handleNext}
+            pokemonPerPage={pokemonPerPage}
+            pokemonLength={pokemon.length}
+            paginate={paginate}
+            next={next}
+            prev={prev}
+            currentPage={currentPage}
+         />
         <div>
-        {<Pokemons data={currentCountries} />}
+        {<Pokemons pokemon={currentPokemons} />}
         </div>
         </div>
     )
