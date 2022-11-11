@@ -2,7 +2,8 @@ import axios from 'axios';
 import{
     GET_ALL_POKEMONS,
     GET_TYPES,
-    GET_NAME_POKEMON
+    GET_NAME_POKEMON,
+    FILTER_CREATED
 } from './TypeActions'
 
 export function getPokemons(){
@@ -47,3 +48,10 @@ export function getNamePokemon(name){
         }
     }
 }
+export function filterCreated(payload){
+    // console.log(payload)
+     return{
+         type: FILTER_CREATED,
+         payload
+     }
+ }

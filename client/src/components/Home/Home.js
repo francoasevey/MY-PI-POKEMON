@@ -7,6 +7,7 @@ import Paginate from "../Paginate/Paginate";
 import SearchBar from "../SearchBar/SearchBar";
 //import styles from "../Home/Home.module.css";
 import Pokemons from "../Pokemons/AllPokemons";
+import FilterApiDb from "../Filter/FilterApiDb";
 
 export default function Home(){
     const dispatch = useDispatch()
@@ -71,7 +72,10 @@ export default function Home(){
     return(
         <div>
             <NavBar/>
-            <div> <SearchBar setToFirstPage={setToFirstPage} /></div>
+            <div>
+            <SearchBar setToFirstPage={setToFirstPage}/>
+            <FilterApiDb setToFirstPage={setToFirstPage}/>
+            </div>
             <Paginate
             handlePrev={handlePrev}
             handleNext={handleNext}

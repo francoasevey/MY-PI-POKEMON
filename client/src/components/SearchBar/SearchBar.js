@@ -69,7 +69,7 @@ const SearchBar = ({ setToFirstPage }) => {
       <br />
       <div>
         <button type="submit" disabled={error} className={S.ButtonSearch} onClick={handleClick}>
-          Buscar
+          search
         </button>
       </div>
     </form>
