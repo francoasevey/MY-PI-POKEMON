@@ -17,7 +17,7 @@ export default function Home(){
     const dispatch = useDispatch()
     const pokemon = useSelector ((state) => state.pokemons);
     const [currentPage, setCurrentPage] = useState(1);
-    const [pokemonPerPage] = useState(10);
+    const [pokemonPerPage] = useState(12);
     const [next, setNext] = useState(true);
     const [prev, setPrev] = useState(true);
     useEffect(() => {
@@ -30,16 +30,18 @@ export default function Home(){
 
 
     const indexOfLastPokemon = currentPage * pokemonPerPage;
-  const indexOfFirstCountries = indexOfLastPokemon - pokemonPerPage;
+  const indexOfFirstPokemons = indexOfLastPokemon - pokemonPerPage;
   let currentPokemons;
-  if (currentPage === 1) {
+  currentPokemons = pokemon.slice(indexOfFirstPokemons, indexOfLastPokemon);
+
+  /*if (currentPage === 1) {
     currentPokemons = pokemon.slice(
       indexOfFirstCountries,
       indexOfLastPokemon - 1
     );
   } else {
     currentPokemons = pokemon.slice(indexOfFirstCountries, indexOfLastPokemon);
-  }
+  }*///funcion para poder poner un numero determinado en la primera pagina
   const paginate = (e, pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -51,7 +53,7 @@ export default function Home(){
   useEffect(() => {
     if (currentPage === 1) setPrev(false);
     else setPrev(true);
-    if (currentPage === Math.ceil(pokemon.length/10)) setNext(false);
+    if (currentPage === Math.ceil(pokemon.length/12)) setNext(false);
     else setNext(true);
   }, [currentPage, pokemon.length]);
 
@@ -65,7 +67,7 @@ export default function Home(){
     }
   };
   const handleNext = () => {
-    if (currentPage < pokemon.length / 10) {
+    if (currentPage < pokemon.length / 12) {
       setNext(true);
       setCurrentPage(currentPage + 1);
     } else {

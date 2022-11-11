@@ -4,7 +4,7 @@ import styles from "../Paginate/Paginate.module.css";
 
 const Paginate = ({currentPage,handlePrev,handleNext,pokemonLength,paginate,next,prev}) => {
   const pageNumbers = [];
-  let Pokelongitud = Math.ceil(pokemonLength / 10);
+  let Pokelongitud = Math.ceil(pokemonLength / 12);
 
   for (let i = 1; i <= Pokelongitud; i++) {
     pageNumbers.push(i);
