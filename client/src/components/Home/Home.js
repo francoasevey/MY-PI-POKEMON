@@ -4,6 +4,7 @@ import {useState , useEffect} from "react";
 import {useDispatch,useSelector} from "react-redux";
 import { getPokemons, getTypes } from "../../redux/Actions/index";
 import Paginate from "../Paginate/Paginate";
+import SearchBar from "../SearchBar/SearchBar";
 //import styles from "../Home/Home.module.css";
 import Pokemons from "../Pokemons/AllPokemons";
 
@@ -70,6 +71,7 @@ export default function Home(){
     return(
         <div>
             <NavBar/>
+            <div> <SearchBar setToFirstPage={setToFirstPage} /></div>
             <Paginate
             handlePrev={handlePrev}
             handleNext={handleNext}
