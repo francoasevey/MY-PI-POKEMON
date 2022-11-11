@@ -4,7 +4,8 @@ import{
     GET_NAME_POKEMON,
     FILTER_CREATED,
     FILTER_BY_TYPES,
-    FILTER_ABC
+    FILTER_ABC,
+    ORDEN_BY_ATTACK
 } from '../Actions/TypeActions'
 
 const initialState = {
@@ -71,6 +72,29 @@ function rootReducer(state = initialState, action){
                 ...state,
                 pokemons: SortedPokemonsABC
             }
+        case ORDEN_BY_ATTACK:
+                const FilterAttack= action.payload === 'High' ? 
+                state.pokemons.sort(function(a,b) {
+                    if(a.attack < b.attack){
+                         return 1
+                        }
+                    if (b.attack < a.attack){
+                        return -1
+                        }
+                        return 0
+                }) : state.pokemons.sort(function(a,b) {
+                    if(a.attack < b.attack){
+                        return -1
+                        }
+                    if (b.attack < a.attack){
+                        return 1
+                        }
+                        return 0
+                })
+                        return {
+                ...state,
+                pokemons: FilterAttack
+                }
         default:
             return state
     }

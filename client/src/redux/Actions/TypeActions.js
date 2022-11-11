@@ -4,3 +4,4 @@ export const GET_NAME_POKEMON = 'GET_NAME_POKEMON';
 export const FILTER_CREATED = 'FILTER_CREATED';
 export const FILTER_BY_TYPES = 'FILTER_BY_TYPES';
 export const FILTER_ABC = 'FILTER_ABC';
+export const ORDEN_BY_ATTACK = 'ORDEN_BY_ATTACK';
