@@ -4,7 +4,8 @@ import{
     GET_TYPES,
     GET_NAME_POKEMON,
     FILTER_CREATED,
-    FILTER_BY_TYPES
+    FILTER_BY_TYPES,
+    FILTER_ABC
 } from './TypeActions'
 
 export function getPokemons(){
@@ -62,4 +63,10 @@ export function filterCreated(payload){
          type: FILTER_BY_TYPES,
          payload
      }
+ }
+ export function orderByABC(payload){
+    return{
+        type: FILTER_ABC,
+        payload
+    }
  }

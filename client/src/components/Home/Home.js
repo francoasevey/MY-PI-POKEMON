@@ -9,6 +9,8 @@ import SearchBar from "../SearchBar/SearchBar";
 import Pokemons from "../Pokemons/AllPokemons";
 import FilterApiDb from "../Filter/FilterApiDb";
 import FilterType from "../Filter/FilterType";
+import FilterABC from "../Filter/FilterABC";
+
 
 export default function Home(){
     const dispatch = useDispatch()
@@ -23,6 +25,8 @@ export default function Home(){
     useEffect(() => {
         dispatch(getTypes())
     },[dispatch])
+    const [,setOrder] = useState("");
+
 
     const indexOfLastPokemon = currentPage * pokemonPerPage;
   const indexOfFirstCountries = indexOfLastPokemon - pokemonPerPage;
@@ -77,6 +81,7 @@ export default function Home(){
             <SearchBar setToFirstPage={setToFirstPage}/>
             <FilterApiDb setToFirstPage={setToFirstPage}/>
             <FilterType setToFirstPage={setToFirstPage}/>
+            <FilterABC setToFirstPage={setToFirstPage} setOrder={setOrder}/>
             </div>
             <Paginate
             handlePrev={handlePrev}
