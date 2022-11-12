@@ -6,13 +6,16 @@ import{
     FILTER_BY_TYPES,
     FILTER_ABC,
     ORDEN_BY_ATTACK,
-    ORDEN_BY_DEFENSE
+    ORDEN_BY_DEFENSE,
+    GET_DETAILS,
+    CLEAN_DETAILS
 } from '../Actions/TypeActions'
 
 const initialState = {
     pokemons: [],
     AllPokemons: [],
-    types: []
+    types: [],
+    detail: []
 }
 
 function rootReducer(state = initialState, action){
@@ -119,6 +122,16 @@ function rootReducer(state = initialState, action){
                 ...state,
                 pokemons: FilterDefense
                 }
+        case GET_DETAILS:
+                        return{
+                ...state,
+                detail: action.payload
+                    }
+        case CLEAN_DETAILS:
+                        return{
+                ...state,
+                detail: []
+                        }
         default:
             return state
     }

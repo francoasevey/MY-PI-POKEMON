@@ -3,6 +3,7 @@ import Card from '../Card/Card'
 import Loader from '../Loader/Loader'
 import Sections from "../Pokemons/AllPokemons.module.css";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Pokemons = ({ pokemon }) => {
   const [loader, setLoader] = useState(false);
@@ -32,19 +33,33 @@ const Pokemons = ({ pokemon }) => {
     <div className={Sections.cards}>
 
       {pokemon.length &&
-        pokemon.map((el) => (
-          <Card
-          id={el.id} 
-          name={el.name}
-          image={el.image? el.image: el.image}
-          types={el.types}
-          created={el.created}
-          key={el.id}
-          />
-        ))}
+        pokemon.map((el) => {
+          return(
+            <div className="Pokemons" key={el.id}>
+                <Link to={"/Detail/" + el.id} key={el.id}>
+                <Card
+                id={el.id} 
+                name={el.name}
+                image={el.image? el.image: el.image}
+                types={el.types.map((e) => (e.name ? e.name : e))}
+                key={el.id}
+                />
+                </Link>
+            </div>
+        )
+})}
       </div>
     </section>
   );
 };
-
+/*
+                <Card
+                id={el.id} 
+                name={el.name}
+                image={el.image? el.image: el.image}
+                types={el.types}
+                created={el.created}
+                key={el.id}
+                />
+*/
 export default Pokemons;

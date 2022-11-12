@@ -7,7 +7,9 @@ import{
     FILTER_BY_TYPES,
     FILTER_ABC,
     ORDEN_BY_ATTACK,
-    ORDEN_BY_DEFENSE
+    ORDEN_BY_DEFENSE,
+    GET_DETAILS,
+    CLEAN_DETAILS
 } from './TypeActions'
 
 export function getPokemons(){
@@ -84,3 +86,21 @@ export function orderByDefense(payload){
         payload
     })
 }
+export function getDetailPokemons(id){
+    return async function (dispatch){
+        try{
+            let json = await axios.get("http://localhost:3001/pokemons/" + id);
+            return dispatch ({
+                type: GET_DETAILS,
+                payload: json.data
+            }) 
+        } catch (error){
+            console.log(error && alert("id not found! ❌"))
+        }
+    }
+ }
+ export function cleanPokemonDetail(){
+    return{
+        type: CLEAN_DETAILS
+    }
+ }
