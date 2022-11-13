@@ -11,7 +11,8 @@ import{
     ORDEN_BY_HEIGHT,
     ORDEN_BY_WEIGHT,
     GET_DETAILS,
-    CLEAN_DETAILS
+    CLEAN_DETAILS,
+    POST_POKEMON
 } from '../Actions/TypeActions'
 
 const initialState = {
@@ -204,6 +205,10 @@ function rootReducer(state = initialState, action){
                 ...state,
                 detail: []
                         }
+        case POST_POKEMON:
+                return {
+                ...state,
+                }
         default:
             return state
     }

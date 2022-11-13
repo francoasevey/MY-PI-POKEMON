@@ -125,3 +125,13 @@ export function getDetailPokemons(id){
         type: CLEAN_DETAILS
     }
  }
+ export function postPokemon(payload){
+    return async function(){
+        try {
+        let json = await axios.post("http://localhost:3001/pokemons", payload)
+        return json
+    } catch (error) {
+        console.log(error && alert("failed to create Pokemon! ❌"))
+    }
+  }
+};
