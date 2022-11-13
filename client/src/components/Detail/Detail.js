@@ -43,7 +43,7 @@ export default function Detail (){
                    <h2>WEIGHT: {myPokemons[0].weight}</h2>
                    <h3 className={styles.content}>TYPES: {myPokemons[0].types.map((e) => (e.name ? e.name : e))}</h3>
                </div> :  <div className='loading'>
-                        <p> <Loader/> </p>
+               <h1> loading...<Loader/> </h1>
                     </div>
             }
 
