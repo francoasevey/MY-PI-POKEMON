@@ -9,6 +9,7 @@ import{
     ORDEN_BY_DEFENSE,
     ORDEN_BY_SPEED,
     ORDEN_BY_HEIGHT,
+    ORDEN_BY_WEIGHT,
     GET_DETAILS,
     CLEAN_DETAILS
 } from '../Actions/TypeActions'
@@ -124,7 +125,7 @@ function rootReducer(state = initialState, action){
                 ...state,
                 pokemons: FilterDefense
                 }
-        case ORDEN_BY_SPEED:
+        case ORDEN_BY_HEIGHT:
                 const FilterHeight= action.payload === 'High' ? 
                 state.pokemons.sort(function(a,b) {
                     if(a.height < b.height){
@@ -147,7 +148,7 @@ function rootReducer(state = initialState, action){
                     ...state,
                     pokemons: FilterHeight
                     }
-                    case ORDEN_BY_HEIGHT:
+        case ORDEN_BY_SPEED:
                 const FilterSpeed= action.payload === 'High' ? 
                 state.pokemons.sort(function(a,b) {
                     if(a.speed < b.speed){
@@ -169,6 +170,29 @@ function rootReducer(state = initialState, action){
                         return {
                     ...state,
                     pokemons: FilterSpeed
+                    }
+        case ORDEN_BY_WEIGHT:
+                const FilterWeight= action.payload === 'High' ? 
+                state.pokemons.sort(function(a,b) {
+                    if(a.weight < b.weight){
+                        return 1
+                        }
+                    if (b.weight < a.weight){
+                        return -1
+                        }
+                        return 0
+                    }) : state.pokemons.sort(function(a,b) {
+                        if(a.weight < b.weight){
+                        return -1
+                        }
+                        if (b.weight < a.weight){
+                        return 1
+                        }
+                        return 0
+                    })
+                        return {
+                    ...state,
+                    pokemons: FilterWeight
                     }
         case GET_DETAILS:
                         return{

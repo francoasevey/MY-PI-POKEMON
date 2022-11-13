@@ -10,3 +10,4 @@ export const GET_DETAILS = 'GET_DETAILS';
 export const CLEAN_DETAILS = 'CLEAN_DETAILS';
 export const ORDEN_BY_SPEED = 'ORDEN_BY_SPEED';
 export const ORDEN_BY_HEIGHT = 'ORDEN_BY_HEIGHT';
+export const ORDEN_BY_WEIGHT = 'ORDEN_BY_WEIGHT';

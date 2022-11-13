@@ -9,6 +9,7 @@ import{
     ORDEN_BY_ATTACK,
     ORDEN_BY_DEFENSE,
     ORDEN_BY_HEIGHT,
+    ORDEN_BY_WEIGHT,
     GET_DETAILS,
     CLEAN_DETAILS,
     ORDEN_BY_SPEED
@@ -97,6 +98,12 @@ export function orderBySpeed(payload){
 export function orderByHeight(payload){
     return({
         type: ORDEN_BY_HEIGHT,
+        payload
+    })
+}
+export function orderByWeight(payload){
+    return({
+        type: ORDEN_BY_WEIGHT,
         payload
     })
 }
