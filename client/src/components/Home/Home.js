@@ -88,7 +88,7 @@ export default function Home(){
             <FilterABC setToFirstPage={setToFirstPage} setOrder={setOrder}/>
             <FilterByAttack setToFirstPage={setToFirstPage} setOrder={setOrder}/>
             <FilterByDefense setToFirstPage={setToFirstPage} setOrder={setOrder}/>
-            <Restar/>
+            <Restar setToFirstPage={setToFirstPage}/>
             </div>
             <Paginate
             handlePrev={handlePrev}
