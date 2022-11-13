@@ -26,7 +26,7 @@ const Pokemons = ({ pokemon }) => {
 
   return (
     <section id={"Section"} className={Sections.SectionCoutriesLoad}>
-      {loader && <Loader />}
+      {loader &&  <h1> loading...<Loader/> </h1>}
       {pokemon.length === 0 && !loader && (
         <h1 style={stylee}>POKEMON NOT FOUND!</h1>
       )}
@@ -41,6 +41,12 @@ const Pokemons = ({ pokemon }) => {
                 id={el.id} 
                 name={el.name}
                 image={el.image? el.image: el.image}
+                hp={el.hp}
+                attack={el.attack}
+                defense={el.defense}
+                speed={el.speed}
+                weight={el.weight}
+                height={el.height}
                 types={el.types.map((e) => (e.name ? e.name : e))}
                 key={el.id}
                 />
