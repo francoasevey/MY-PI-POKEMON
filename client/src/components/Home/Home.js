@@ -12,6 +12,7 @@ import FilterType from "../Filter/FilterType";
 import FilterABC from "../Filter/FilterABC";
 import FilterByAttack from "../Filter/FilterByAttack";
 import FilterByDefense from "../Filter/FilterByDefense";
+import FilterBySpeed from "../Filter/FilterBySpeed";
 import Restar from "../Filter/Restar";
 
 export default function Home(){
@@ -88,6 +89,8 @@ export default function Home(){
             <FilterABC setToFirstPage={setToFirstPage} setOrder={setOrder}/>
             <FilterByAttack setToFirstPage={setToFirstPage} setOrder={setOrder}/>
             <FilterByDefense setToFirstPage={setToFirstPage} setOrder={setOrder}/>
+            <FilterBySpeed setToFirstPage={setToFirstPage} setOrder={setOrder}/>
+
             <Restar setToFirstPage={setToFirstPage}/>
             </div>
             <Paginate

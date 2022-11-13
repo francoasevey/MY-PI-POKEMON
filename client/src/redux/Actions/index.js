@@ -8,8 +8,10 @@ import{
     FILTER_ABC,
     ORDEN_BY_ATTACK,
     ORDEN_BY_DEFENSE,
+    ORDEN_BY_HEIGHT,
     GET_DETAILS,
-    CLEAN_DETAILS
+    CLEAN_DETAILS,
+    ORDEN_BY_SPEED
 } from './TypeActions'
 
 export function getPokemons(){
@@ -83,6 +85,18 @@ export function filterCreated(payload){
 export function orderByDefense(payload){
     return({
         type: ORDEN_BY_DEFENSE,
+        payload
+    })
+}
+export function orderBySpeed(payload){
+    return({
+        type: ORDEN_BY_SPEED,
+        payload
+    })
+}
+export function orderByHeight(payload){
+    return({
+        type: ORDEN_BY_HEIGHT,
         payload
     })
 }

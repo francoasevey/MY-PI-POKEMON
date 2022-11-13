@@ -8,3 +8,5 @@ export const ORDEN_BY_ATTACK = 'ORDEN_BY_ATTACK';
 export const ORDEN_BY_DEFENSE = 'ORDEN_BY_DEFENSE';
 export const GET_DETAILS = 'GET_DETAILS';
 export const CLEAN_DETAILS = 'CLEAN_DETAILS';
+export const ORDEN_BY_SPEED = 'ORDEN_BY_SPEED';
+export const ORDEN_BY_HEIGHT = 'ORDEN_BY_HEIGHT';

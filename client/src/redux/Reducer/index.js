@@ -7,6 +7,8 @@ import{
     FILTER_ABC,
     ORDEN_BY_ATTACK,
     ORDEN_BY_DEFENSE,
+    ORDEN_BY_SPEED,
+    ORDEN_BY_HEIGHT,
     GET_DETAILS,
     CLEAN_DETAILS
 } from '../Actions/TypeActions'
@@ -122,6 +124,52 @@ function rootReducer(state = initialState, action){
                 ...state,
                 pokemons: FilterDefense
                 }
+        case ORDEN_BY_SPEED:
+                const FilterHeight= action.payload === 'High' ? 
+                state.pokemons.sort(function(a,b) {
+                    if(a.height < b.height){
+                        return 1
+                        }
+                    if (b.height < a.height){
+                        return -1
+                        }
+                        return 0
+                    }) : state.pokemons.sort(function(a,b) {
+                        if(a.height < b.height){
+                        return -1
+                        }
+                        if (b.height < a.height){
+                        return 1
+                        }
+                        return 0
+                    })
+                        return {
+                    ...state,
+                    pokemons: FilterHeight
+                    }
+                    case ORDEN_BY_HEIGHT:
+                const FilterSpeed= action.payload === 'High' ? 
+                state.pokemons.sort(function(a,b) {
+                    if(a.speed < b.speed){
+                        return 1
+                        }
+                    if (b.speed < a.speed){
+                        return -1
+                        }
+                        return 0
+                    }) : state.pokemons.sort(function(a,b) {
+                        if(a.speed < b.speed){
+                        return -1
+                        }
+                        if (b.speed < a.speed){
+                        return 1
+                        }
+                        return 0
+                    })
+                        return {
+                    ...state,
+                    pokemons: FilterSpeed
+                    }
         case GET_DETAILS:
                         return{
                 ...state,
