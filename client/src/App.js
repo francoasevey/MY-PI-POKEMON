@@ -5,6 +5,7 @@ import LandingPage from './components/LandingPage/LandingPage';
 import Home from './components/Home/Home';
 import Detail from './components/Detail/Detail';
 import CreatePokemon from './components/CreatePokemon/CreatePokemon';
+import PokemonEdit from './components/EditPokemon/PokemonEdit';
 function App() {
   return (
     <BrowserRouter>
@@ -13,6 +14,7 @@ function App() {
     <Route path= "/home" component={Home}></Route>
     <Route path="/Detail/:id" component={Detail}></Route>
     <Route path= "/CreatePokemon" component={CreatePokemon}></Route>
+    <Route path= "/PokemonEdit/:id" component={PokemonEdit}></Route>
     </div>
     </BrowserRouter>
   );

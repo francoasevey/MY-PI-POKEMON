@@ -1,7 +1,7 @@
 import React from "react";
 import {useEffect } from "react";
-import {Link , useParams} from 'react-router-dom';
-import {getDetailPokemons, cleanPokemonDetail} from '../../redux/Actions/index';
+import {Link , useParams, useHistory} from 'react-router-dom';
+import {getDetailPokemons, cleanPokemonDetail,getPokemons,deletePokemon} from '../../redux/Actions/index';
 import { useDispatch,useSelector } from "react-redux";
 import Loader from "../Loader/Loader";
 import styles from '../Detail/Detail.module.css'
@@ -19,8 +19,17 @@ export default function Detail (){
     };
   }, [dispatch]);
 
+  const history = useHistory()
+  const pokemons = useSelector((state) => state.pokemons)
   const myPokemons = useSelector((state) => state.detail);
   console.log(myPokemons);
+
+  const handlerDelete = () => {
+    dispatch(deletePokemon(id));
+    alert("Pokemon eliminado");
+    history.push("/home");
+    dispatch(getPokemons());
+  };
 
      return(
         <div className={styles.Detail}>
@@ -42,6 +51,23 @@ export default function Detail (){
                    <h2 className={styles.text}>HEIGHT: {myPokemons[0].height}📏</h2>
                    <h2>WEIGHT: {myPokemons[0].weight}</h2>
                    <h3 className={styles.content}>TYPES: {myPokemons[0].types.map((e) => (e.name ? e.name : e))}</h3>
+                   {myPokemons[0].created && (
+                    <div className={styles.buttons}>
+                      <Link
+                        to={"/PokemonEdit/" + id}
+                        className={`${styles.deleteButton} ${styles.buttonRed}`}
+                      >
+                        Edit Pokemon
+                      </Link>
+
+                      <button
+                        onClick={(e) => handlerDelete(e)}
+                        className={styles.deleteButton}
+                      >
+                        Delete Pokemon
+                      </button>
+                    </div>
+                  )}
                </div> :  <div className='loading'>
                <h1> loading...<Loader/> </h1>
                     </div>

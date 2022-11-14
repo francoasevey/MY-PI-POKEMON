@@ -1,8 +1,8 @@
 import React,{useState,useEffect} from "react";
-import {Link, useHistory} from 'react-router-dom';
-import { postPokemon,getTypes} from '../../redux/Actions/index';
+import {Link, useHistory,useParams} from 'react-router-dom';
+import { editPokemon,getTypes,getDetailPokemons} from '../../redux/Actions/index';
 import { useDispatch, useSelector } from "react-redux";
-import styles from '../CreatePokemon/CreatePokemon.module.css'
+import styles from '../EditPokemon/PokemonEdit.module.css'
 
 function validate({
     name,
@@ -51,9 +51,12 @@ function validate({
     return errors;
 };
 
-function CreatePokemon(){
+function PokemonEdit(){
     const dispatch = useDispatch()
+    const { id } = useParams();
     const history = useHistory()
+    const pokemons = useSelector((state) => state.pokemons)
+    const myPokemons = useSelector((state) => state.detail);
     const types = useSelector((state) => state.types)
     const [errors,setErrors] = useState({});
     const [input,setInput] = useState({
@@ -69,8 +72,15 @@ function CreatePokemon(){
     });
     useEffect(() => {
         dispatch(getTypes());
+        dispatch(getDetailPokemons(id));
         //dispatch(getPokemons());
-    },[dispatch]);
+    },[dispatch, pokemons.length, id]);
+
+    useEffect(() => {
+        if (myPokemons.length) {
+          setInput(myPokemons[0]);
+        }
+      }, [myPokemons.length, myPokemons]);
 
     function handleChange(e){
         setInput({
@@ -182,8 +192,8 @@ function CreatePokemon(){
             console.log(input)
             if (Object.values(errors).length > 0) alert("Please fill in all the fields ❌")
                 else {
-            dispatch(postPokemon(input))
-            alert('¡Pokemon created successfully! ✔')
+            dispatch(editPokemon(id,input))
+            alert('¡Pokemon edit successfully! ✔')
             setInput({
                 name: "",
                 hp: "",
@@ -195,7 +205,8 @@ function CreatePokemon(){
                 image : "",
                 types : [],
             })
-            history.push('/home')
+            history.push('/home');
+            dispatch(getDetailPokemons(id));
         }
         }
     }
@@ -204,7 +215,7 @@ function CreatePokemon(){
         <div>
             <Link to= '/home'><button className={styles.button}></button></Link>
             <div>
-            <h1 className={styles.text}>CREATE YOUR POKEMON!</h1>
+            <h1 className={styles.text}>EDIT YOUR POKEMON!</h1>
             <form onSubmit={(e) => handleSubmit(e)}>
                 <div>
                     <label>NAME:</label>
@@ -323,17 +334,17 @@ function CreatePokemon(){
                         })}
                 </select>
                 <ul>{input.types.map(el => el + ",")}</ul>
-                <button className={styles.text} type='submit'>CREATE POKEMON</button>
+                <button className={styles.text} type='submit'>EDIT POKEMON</button>
             </form>
             </div>
             {input.types.map(el => 
-                <div key={el} className={styles.delete}>
-                    <p key={el}>{el}</p>
+                <div className={styles.delete}>
+                    <p>{el}</p>
                     <button className={styles.x} onClick={() => handleDelete(el)}>x</button>
                 </div>
             )}
         </div>
     )
 }
-export default CreatePokemon;
+export default PokemonEdit;
 

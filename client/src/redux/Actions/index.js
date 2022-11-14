@@ -12,7 +12,9 @@ import{
     ORDEN_BY_WEIGHT,
     GET_DETAILS,
     CLEAN_DETAILS,
-    ORDEN_BY_SPEED
+    ORDEN_BY_SPEED,
+    EDIT_POKEMON,
+    DELETE_POKEMON
 } from './TypeActions'
 
 export function getPokemons(){
@@ -135,3 +137,30 @@ export function getDetailPokemons(id){
     }
   }
 };
+export function editPokemon(id, PokeEdit) {
+    return async function (dispatch) {
+        try {
+           const json = await axios.put(`http://localhost:3001/pokemons/modification/${id}`, PokeEdit);
+            return dispatch({
+              type: EDIT_POKEMON,
+              payload: json.data,
+            });  
+        } catch (error) {
+            console.log(error && alert("failed to Edit Pokemon! ❌"))
+        }
+    };
+  }
+  export function deletePokemon(id, deletePoke) {
+    return async function (dispatch) {
+        try {
+            await axios.put(`http://localhost:3001/pokemons/delete/${id}`, {
+                deletePoke: deletePoke,
+            });
+            return dispatch({
+              type: DELETE_POKEMON,
+            });  
+        } catch (error) {
+            console.log(error && alert("failed to delete Pokemon! ❌")) 
+        }
+    };
+  }

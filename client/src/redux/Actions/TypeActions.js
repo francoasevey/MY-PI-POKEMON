@@ -12,3 +12,5 @@ export const ORDEN_BY_SPEED = 'ORDEN_BY_SPEED';
 export const ORDEN_BY_HEIGHT = 'ORDEN_BY_HEIGHT';
 export const ORDEN_BY_WEIGHT = 'ORDEN_BY_WEIGHT';
 export const POST_POKEMON = 'POST_POKEMON';
+export const EDIT_POKEMON = 'EDIT_POKEMON';
+export const DELETE_POKEMON = 'DELETE_POKEMON';
