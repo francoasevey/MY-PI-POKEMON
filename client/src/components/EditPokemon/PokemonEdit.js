@@ -338,13 +338,30 @@ function PokemonEdit(){
             </form>
             </div>
             {input.types.map(el => 
-                <div className={styles.delete}>
-                    <p>{el}</p>
+                <div key={el} className={styles.delete}>
+                    <p>{el.name}</p>
                     <button className={styles.x} onClick={() => handleDelete(el)}>x</button>
                 </div>
             )}
         </div>
     )
 }
+/*
+ <ul className={styles.types}>
+                    {input.types.map((t) => {
+                      return (
+                        <li key={t} className={styles.types}>
+                          
+                          <button
+                            onClick={() => handleDelete(t)}
+                            className={styles.deleteButton}
+                          >
+                            x
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+ */
 export default PokemonEdit;
 

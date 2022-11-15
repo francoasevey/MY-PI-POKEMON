@@ -153,7 +153,7 @@ export function editPokemon(id, PokeEdit) {
   export function deletePokemon(id, deletePoke) {
     return async function (dispatch) {
         try {
-            await axios.put(`http://localhost:3001/pokemons/delete/${id}`, {
+            await axios.delete(`http://localhost:3001/pokemons/delete/${id}`, {
                 deletePoke: deletePoke,
             });
             return dispatch({
