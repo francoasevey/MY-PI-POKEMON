@@ -200,9 +200,29 @@ function CreatePokemon(){
         }
     }
 
+    const handleCancel = () => {
+        if(window.confirm('Are you sure you want to cancel?')){
+          setInput({
+                  name: "",
+                  hp: "",
+                  attack: "",
+                  defense: "",
+                  speed: "",
+                  height: "",
+                  weight: "",
+                  image : "",
+                  types : [],
+          })
+          
+          setErrors({})
+        } else {
+          return;
+        }
+      }
+      
     return(
         <div>
-            <Link to= '/home'><button className={styles.button}></button></Link>
+            <Link to= '/home'><button className={styles.button} type="button" onClick={handleCancel}></button></Link>
             <div>
             <h1 className={styles.text}>CREATE YOUR POKEMON!</h1>
             <form onSubmit={(e) => handleSubmit(e)}>

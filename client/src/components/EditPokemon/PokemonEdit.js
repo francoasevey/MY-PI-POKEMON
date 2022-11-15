@@ -210,12 +210,31 @@ function PokemonEdit(){
         }
         }
     }
+    const handleCancel = () => {
+      if(window.confirm('Are you sure you want to cancel?')){
+        setInput({
+                name: "",
+                hp: "",
+                attack: "",
+                defense: "",
+                speed: "",
+                height: "",
+                weight: "",
+                image : "",
+                types : [],
+        })
+        
+        setErrors({})
+      } else {
+        return;
+      }
+    }
 
     return(
         <div>
             <Link to= '/home'><button className={styles.button}></button></Link>
             <Link to={`/Detail/${id}`}>
-            <button className={styles.buttonHome}>Cancel</button>
+            <button className={styles.buttonHome} type="button" onClick={handleCancel}>Cancel</button>
             </Link>
             <div>
             <h1 className={styles.text}>EDIT YOUR POKEMON!</h1>
