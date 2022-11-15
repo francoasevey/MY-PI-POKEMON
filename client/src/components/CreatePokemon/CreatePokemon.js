@@ -241,17 +241,20 @@ function CreatePokemon(){
                 </div>
                 <div>
                   <label>HP</label>
-                  <input type="number"
-                   value={input.hp}
-                   min="1" max='100'  
-                   name='hp'
-                   pattern="[A-Za-z0-9_- :.,()]{1,15}"
-                   placeholder="Enter a hp"
-                   required=""
+                  <input 
+                    type="range"
+                    name="hp"
+                    id="hp"
+                    min={1}
+                    max={100}
+                    value={input.hp || 10}
                    onChange={(e) => handleChange(e)}/>
                    {errors.hp && (
                         <p className="error">{errors.hp}</p>
                     )}
+                     <div className="value">
+                    <span>{input.hp ? input.hp : 10}</span>
+                  </div>
                 </div>
                 <div>
                   <label>ATTACK</label>
