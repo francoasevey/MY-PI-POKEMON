@@ -83,4 +83,5 @@ export default function Detail ({created}){
       )
   }
 }
+<h3 className={styles.content}>TYPES: {myPokemons[0].types.map((e) => (e.name ? e.name : e))}</h3>
  */
