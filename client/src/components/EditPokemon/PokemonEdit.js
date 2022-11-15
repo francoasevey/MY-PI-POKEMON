@@ -214,6 +214,9 @@ function PokemonEdit(){
     return(
         <div>
             <Link to= '/home'><button className={styles.button}></button></Link>
+            <Link to={`/Detail/${id}`}>
+            <button className={styles.buttonHome}>Cancel</button>
+            </Link>
             <div>
             <h1 className={styles.text}>EDIT YOUR POKEMON!</h1>
             <form onSubmit={(e) => handleSubmit(e)}>
@@ -326,27 +329,51 @@ function PokemonEdit(){
                         <p className="error">{errors.image}</p>
                     )}
                   </div>
-                <select className={styles.text} onChange={(e) => handleSelect(e)}>
+                  <select onChange={(e) => handleSelect(e)}
+                    defaultValue="types">
+                    <option value="types" hidden name="types" >Select types</option>
+                    {types && types.map((t) => {
+                      return (
+                        <option value={t.name} key={t.name}>{t.name}</option>
+                      );
+                    })}
+                  </select>
+                <button className={styles.text} type='submit'>UPDATE</button>
+            </form>
+            </div>
+            {input.types.map((el) => {
+                      return (
+                        <ul key={el}>
+                          {el.name || el}
+                          <button onClick={() => handleDelete(el)}> x </button>
+                        </ul>
+                      );
+                    })}
+        </div>
+    )
+}
+/*
+
+ <select className={styles.text} onChange={(e) => handleSelect(e)}>
                 <option value="" hidden name="types" >Select types</option>
                     {types && types?.map((el, i) =>{
                       return (
                       <option key={el.id + i} value={el.name}>{el.name}</option>)
                         })}
                 </select>
-                <ul>{input.types.map(el => el + ",")}</ul>
-                <button className={styles.text} type='submit'>EDIT POKEMON</button>
+                <button className={styles.text} type='submit'>CREATE POKEMON</button>
             </form>
             </div>
             {input.types.map(el => 
                 <div key={el} className={styles.delete}>
-                    <p>{el.name}</p>
+                    <p key={el}>{el.name}</p>
                     <button className={styles.x} onClick={() => handleDelete(el)}>x</button>
                 </div>
             )}
-        </div>
-    )
-}
-/*
+
+                <ul>{input.types.map(el => el.name || el + ",")}</ul>
+
+
  <ul className={styles.types}>
                     {input.types.map((t) => {
                       return (

@@ -26,7 +26,7 @@ export default function Detail (){
 
   const handlerDelete = () => {
     dispatch(deletePokemon(id));
-    alert("Pokemon eliminado");
+    alert("Pokemon Delete");
     history.push("/home");
     dispatch(getPokemons());
   };
