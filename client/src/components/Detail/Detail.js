@@ -20,7 +20,7 @@ export default function Detail (){
   }, [dispatch]);
 
   const history = useHistory()
-  const pokemons = useSelector((state) => state.pokemons)
+  //const pokemons = useSelector((state) => state.pokemons)
   const myPokemons = useSelector((state) => state.detail);
   console.log(myPokemons);
 

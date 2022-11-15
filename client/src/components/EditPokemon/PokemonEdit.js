@@ -56,7 +56,7 @@ function PokemonEdit(){
     const { id } = useParams();
     const history = useHistory()
     const pokemons = useSelector((state) => state.pokemons)
-    const myPokemons = useSelector((state) => state.detail);
+    //const myPokemons = useSelector((state) => state.detail);
     const types = useSelector((state) => state.types)
     const [errors,setErrors] = useState({});
     const [input,setInput] = useState({
@@ -76,11 +76,11 @@ function PokemonEdit(){
         //dispatch(getPokemons());
     },[dispatch, pokemons.length, id]);
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (myPokemons.length) {
           setInput(myPokemons[0]);
         }
-      }, [myPokemons.length, myPokemons]);
+      }, [myPokemons.length, myPokemons]);*///function para que los valores de la card esten al editar
 
     function handleChange(e){
         setInput({
