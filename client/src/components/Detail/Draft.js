@@ -84,4 +84,39 @@ export default function Detail ({created}){
   }
 }
 <h3 className={styles.content}>TYPES: {myPokemons[0].types.map((e) => (e.name ? e.name : e))}</h3>
- */
+ 
+  async function next2() {
+    await axios.get(`http://localhost:3001/pokemons/${parseInt(id) + 1}`)
+    .then((data) => {
+        if (data.error) {
+          history.push(`/Detail${lastSearch}`);
+        } else {
+          history.push(`/Detail/${parseInt(id) + 1}`);
+        }
+      });
+  }
+
+  function prev() {
+    fetch(`http://localhost:3001/pokemons/${parseInt(id) - 1}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          history.push(`/Detail${lastSearch}`);
+        } else {
+          history.push(`/Detail/${parseInt(id) - 1}`);
+        }
+      });
+  }
+
+  async function next() {
+    await fetch(`http://localhost:3001/pokemons/${parseInt(id) + 1}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          history.push(`/Detail${lastSearch}`);
+        } else {
+          history.push(`/Detail/${parseInt(id) + 1}`);
+        }
+      });
+  }
+*/

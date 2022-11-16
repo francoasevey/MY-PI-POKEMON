@@ -1,4 +1,5 @@
 import React from "react";
+import axios from 'axios';
 import {useEffect } from "react";
 import {Link , useParams, useHistory} from 'react-router-dom';
 import {getDetailPokemons, cleanPokemonDetail,getPokemons,deletePokemon} from '../../redux/Actions/index';
@@ -12,16 +13,18 @@ export default function Detail (){
   useEffect(() => {
     dispatch(getDetailPokemons(id));
   }, [dispatch, id]);
+  
 
   useEffect(() => {
     return () => {
       dispatch(cleanPokemonDetail());
     };
-  }, [dispatch]);
+  }, [dispatch], id);
 
   const history = useHistory()
   //const pokemons = useSelector((state) => state.pokemons)
   const myPokemons = useSelector((state) => state.detail);
+  const pokemon = useSelector((state) => state.pokemons);
   console.log(myPokemons);
 
   const handlerDelete = () => {
@@ -31,13 +34,54 @@ export default function Detail (){
     dispatch(getPokemons());
   };
 
+  const state  = useSelector((state) => state);
+
+  function prevCard() {
+    axios.get(`http://localhost:3001/pokemons/${parseInt(id) - 1}`)
+      .then((data) => {
+        if (data.error) {
+          history.push(`/Detail${state}`);
+        } else {
+          history.push(`/Detail/${parseInt(id) - 1}`);
+        }
+      });
+  }
+
+   function nextCard() {
+    axios.get(`http://localhost:3001/pokemons/${parseInt(id) + 1}`)
+      .then((data) => {
+        if (data.error) {
+          history.push(`/Detail${state}`);
+        } else {
+          history.push(`/Detail/${parseInt(id) + 1}`);
+        }
+      });
+  }
+ 
      return(
         <div className={styles.Detail}>
-            <div>
+          <div>
+          <button
+            className="arrows"
+            onClick={prevCard}
+            disabled={parseInt(id) - 1 === 0 ? true : false}
+          >
+            ◀⬅ PREV
+          </button>
+
+          <div>
             <Link to = '/home'>
                 <button className={styles.button}>Go Home!</button>
             </Link>
             </div>
+          <button
+            className="arrows"
+            onClick={nextCard}
+            disabled={parseInt(id) + 1 > parseInt(pokemon)}
+          >
+            NEXT ▶➡
+          </button>
+        </div>
             {
                myPokemons.length > 0 ?
                <div>
@@ -57,14 +101,14 @@ export default function Detail (){
                         to={"/PokemonEdit/" + id}
                         className={`${styles.deleteButton} ${styles.buttonRed}`}
                       >
-                        Edit Pokemon
+                        UPDATE
                       </Link>
 
                       <button
                         onClick={(e) => handlerDelete(e)}
                         className={styles.deleteButton}
                       >
-                        Delete Pokemon
+                        DELETE
                       </button>
                     </div>
                   )}
