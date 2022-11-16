@@ -14,7 +14,9 @@ import{
     CLEAN_DETAILS,
     POST_POKEMON,
     EDIT_POKEMON,
-    DELETE_POKEMON
+    DELETE_POKEMON,
+    PREV,
+    NEXT
 } from '../Actions/TypeActions'
 
 const initialState = {
@@ -216,6 +218,14 @@ function rootReducer(state = initialState, action){
                 ...state,
                 }
         case DELETE_POKEMON:
+                return {
+                ...state,
+                };
+        case PREV:
+                return {
+                ...state,
+                };
+        case NEXT:
                 return {
                 ...state,
                 };

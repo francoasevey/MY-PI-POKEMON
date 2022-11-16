@@ -14,3 +14,5 @@ export const ORDEN_BY_WEIGHT = 'ORDEN_BY_WEIGHT';
 export const POST_POKEMON = 'POST_POKEMON';
 export const EDIT_POKEMON = 'EDIT_POKEMON';
 export const DELETE_POKEMON = 'DELETE_POKEMON';
+export const PREV = 'PREV';
+export const NEXT = 'NEXT';

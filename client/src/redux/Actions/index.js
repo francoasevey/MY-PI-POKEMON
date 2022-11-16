@@ -14,7 +14,9 @@ import{
     CLEAN_DETAILS,
     ORDEN_BY_SPEED,
     EDIT_POKEMON,
-    DELETE_POKEMON
+    DELETE_POKEMON,
+    PREV,
+    NEXT
 } from './TypeActions'
 
 export function getPokemons(){
@@ -164,3 +166,29 @@ export function editPokemon(id, PokeEdit) {
         }
     };
   }
+  export function prevCard(id){
+    return async function (dispatch){
+        try{
+            let json = await axios.get(`http://localhost:3001/pokemons/${parseInt(id) - 1}`);
+            return dispatch ({
+                type: PREV,
+                payload: json.data
+            }) 
+        } catch (error){
+            console.log(error && alert("previous pokemon id not found ❌"))
+        }
+    }
+ }
+ export function nextCard(id){
+    return async function (dispatch){
+        try{
+            let json = await axios.get(`http://localhost:3001/pokemons/${parseInt(id) + 1}`);
+            return dispatch ({
+                type: NEXT,
+                payload: json.data
+            }) 
+        } catch (error){
+            console.log(error && alert("next pokemon id not found ❌"))
+        }
+    }
+ }

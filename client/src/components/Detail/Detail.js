@@ -1,8 +1,7 @@
 import React from "react";
-import axios from 'axios';
 import {useEffect } from "react";
 import {Link , useParams, useHistory} from 'react-router-dom';
-import {getDetailPokemons, cleanPokemonDetail,getPokemons,deletePokemon} from '../../redux/Actions/index';
+import {getDetailPokemons, cleanPokemonDetail,getPokemons,deletePokemon,prevCard,nextCard} from '../../redux/Actions/index';
 import { useDispatch,useSelector } from "react-redux";
 import Loader from "../Loader/Loader";
 import styles from '../Detail/Detail.module.css'
@@ -36,34 +35,30 @@ export default function Detail (){
 
   const state  = useSelector((state) => state);
 
-  function prevCard() {
-    axios.get(`http://localhost:3001/pokemons/${parseInt(id) - 1}`)
-      .then((data) => {
-        if (data.error) {
-          history.push(`/Detail${state}`);
-        } else {
-          history.push(`/Detail/${parseInt(id) - 1}`);
-        }
-      });
+  const handlePrev = (data) =>{
+    dispatch(prevCard(id));
+    dispatch(cleanPokemonDetail());
+    if (data.error) {
+      history.push(`/Detail${state}`);
+    } else {
+      history.push(`/Detail/${parseInt(id) - 1}`);
+    }
   }
-
-   function nextCard() {
-    axios.get(`http://localhost:3001/pokemons/${parseInt(id) + 1}`)
-      .then((data) => {
-        if (data.error) {
-          history.push(`/Detail${state}`);
-        } else {
-          history.push(`/Detail/${parseInt(id) + 1}`);
-        }
-      });
+  const handleNext = (data) =>{
+    dispatch (nextCard(id));
+    dispatch(cleanPokemonDetail());
+    if (data.error) {
+      history.push(`/Detail${state}`);
+    } else {
+      history.push(`/Detail/${parseInt(id) + 1}`);
+    }
   }
- 
      return(
         <div className={styles.Detail}>
           <div>
           <button
             className="arrows"
-            onClick={prevCard}
+            onClick={handlePrev}
             disabled={parseInt(id) - 1 === 0 ? true : false}
           >
             ◀⬅ PREV
@@ -76,7 +71,7 @@ export default function Detail (){
             </div>
           <button
             className="arrows"
-            onClick={nextCard}
+            onClick={handleNext}
             disabled={parseInt(id) + 1 > parseInt(pokemon)}
           >
             NEXT ▶➡
@@ -103,7 +98,6 @@ export default function Detail (){
                       >
                         UPDATE
                       </Link>
-
                       <button
                         onClick={(e) => { if(window.confirm('Are you sure to delete this pokemon?')) handlerDelete(e)}}
                         className={styles.deleteButton}
@@ -116,7 +110,6 @@ export default function Detail (){
                <h1> loading...<Loader/> </h1>
                     </div>
             }
-
         </div> 
     )
 }

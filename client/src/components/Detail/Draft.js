@@ -119,4 +119,50 @@ export default function Detail ({created}){
         }
       });
   }
+
+  const state  = useSelector((state) => state);
+
+  function prevCard() {
+    axios.get(`http://localhost:3001/pokemons/${parseInt(id) - 1}`)
+      .then((data) => {
+        if (data.error) {
+          history.push(`/Detail${state}`);
+        } else {
+          history.push(`/Detail/${parseInt(id) - 1}`);
+        }
+      });
+  }
+
+   function nextCard() {
+    axios.get(`http://localhost:3001/pokemons/${parseInt(id) + 1}`)
+      .then((data) => {
+        if (data.error) {
+          history.push(`/Detail${state}`);
+        } else {
+          history.push(`/Detail/${parseInt(id) + 1}`);
+        }
+      });
+  }
+  <div>
+          <button
+            className="arrows"
+            onClick={prevCard}
+            disabled={parseInt(id) - 1 === 0 ? true : false}
+          >
+            ◀⬅ PREV
+          </button>
+
+          <div>
+            <Link to = '/home'>
+                <button className={styles.button}>Go Home!</button>
+            </Link>
+            </div>
+          <button
+            className="arrows"
+            onClick={nextCard}
+            disabled={parseInt(id) + 1 > parseInt(pokemon)}
+          >
+            NEXT ▶➡
+          </button>
+        </div>
 */
