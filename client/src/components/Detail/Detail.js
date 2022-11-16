@@ -105,7 +105,7 @@ export default function Detail (){
                       </Link>
 
                       <button
-                        onClick={(e) => handlerDelete(e)}
+                        onClick={(e) => { if(window.confirm('Are you sure to delete this pokemon?')) handlerDelete(e)}}
                         className={styles.deleteButton}
                       >
                         DELETE
