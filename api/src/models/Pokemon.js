@@ -35,6 +35,12 @@ module.exports = (sequelize) => {
     image: {
       type: DataTypes.STRING,
     },
+    specialAttack: {
+      type: DataTypes.INTEGER
+    },
+    specialDefense: {
+      type: DataTypes.INTEGER
+    },
     created: {
       type: DataTypes.BOOLEAN,
       allowNull: false,

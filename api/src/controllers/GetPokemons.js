@@ -21,11 +21,15 @@ const getApiInfo = async () =>{
           hp: el.stats[0].base_stat,
           attack: el.stats[1].base_stat,
           defense: el.stats[2].base_stat,
+          specialAttack: el.stats[3].base_stat,
+          specialDefense: el.stats[4].base_stat,
           speed: el.stats[5].base_stat,
           height: el.height,
           weight: el.weight,
           image: el.sprites.other.home.front_default,
           types: el.types.map((e) => e.type.name),
+          abilities: el.abilities.map((e) => e.ability.name),
+          //moves: el.moves.map((e) => e.move.name)
         };
       });
       return apiInfo;
