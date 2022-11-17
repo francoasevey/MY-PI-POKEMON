@@ -2,6 +2,8 @@ import axios from 'axios';
 import{
     GET_ALL_POKEMONS,
     GET_TYPES,
+    GET_ABILITY,
+    GET_MOVE,
     GET_NAME_POKEMON,
     FILTER_CREATED,
     FILTER_BY_TYPES,
@@ -43,6 +45,34 @@ export function getTypes(){
             })
         } catch (error) {
             console.log(error && window.alert("failed to load types ❌"))
+            
+        }
+    }
+}
+export function getAbility(){
+    return async function(dispatch){
+        try {
+            let json = await axios.get('http://localhost:3001/abilities');
+            return dispatch({
+                type : GET_ABILITY,
+                payload: json.data
+            })
+        } catch (error) {
+            console.log(error && window.alert("failed to load abilities ❌"))
+            
+        }
+    }
+}
+export function getMove(){
+    return async function(dispatch){
+        try {
+            let json = await axios.get('http://localhost:3001/moves');
+            return dispatch({
+                type : GET_MOVE,
+                payload: json.data
+            })
+        } catch (error) {
+            console.log(error && window.alert("failed to load moves ❌"))
             
         }
     }

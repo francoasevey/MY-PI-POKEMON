@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from "react";
 import {Link, useHistory} from 'react-router-dom';
-import { postPokemon,getTypes} from '../../redux/Actions/index';
+import { postPokemon,getTypes,getAbility,getMove} from '../../redux/Actions/index';
 import { useDispatch, useSelector } from "react-redux";
 import styles from '../CreatePokemon/CreatePokemon.module.css'
 
@@ -8,7 +8,9 @@ function validate({
     name,
     hp,
     attack,
+    specialAttack,
     defense,
+    specialDefense,
     speed,
     height,
     weight,
@@ -29,8 +31,14 @@ function validate({
     if (!/^(^[1-9]$|^[0-9]{0,2}$|^(100)$)?$/.test(attack)) {
         errors.attack = <b>the attack cannot be less than 1 or greater than 100 ❌</b>
       }
+    if (!/^(^[1-9]$|^[0-9][0-9]{0,2}$|^(200)$)?$/.test(specialAttack)) {
+        errors.specialAttack = <b>the special Attack cannot be less than 1 or greater than 200 ❌</b>
+      }
     if (!/^(^[1-9]$|^[0-9]{0,2}$|^(100)$)?$/.test(defense)) {
         errors.defense = <b>the defense cannot be less than 1 or greater than 100 ❌</b>
+      }
+    if (!/^(^[1-9]$|^[0-9][0-9]{0,2}$|^(200)$)?$/.test(specialDefense)) {
+        errors.specialDefense = <b>the special Attack cannot be less than 1 or greater than 200 ❌</b>
       }
     if (!/^(^[1-9]$|^[0-9]{0,2}$|^(100)$)?$/.test(speed)) {
         errors.speed = <b>the speed cannot be less than 1 or greater than 100 ❌</b>
@@ -55,21 +63,28 @@ function CreatePokemon(){
     const dispatch = useDispatch()
     const history = useHistory()
     const types = useSelector((state) => state.types)
+    const abilities = useSelector((state) => state.ability)
+    const moves = useSelector((state) => state.move)
     const [errors,setErrors] = useState({});
     const [input,setInput] = useState({
         name: "",
         hp: "",
         attack: "",
+        specialAttack: "",
         defense: "",
+        specialDefense: "",
         speed: "",
         height: "",
         weight: "",
         image : "",
         types : [],
+        abilities : [],
+        moves : [],
     });
     useEffect(() => {
         dispatch(getTypes());
-        //dispatch(getPokemons());
+        dispatch(getAbility());
+        dispatch(getMove());
     },[dispatch]);
 
     function handleChange(e){
@@ -84,19 +99,31 @@ function CreatePokemon(){
         //console.log(input)
     }
 
-    function handleDelete(el){
+    function handleDeleteType(el){
         setInput({
             ...input,
             types : input.types.filter(occ => occ !== el)
         })
     }
+    function handleDeleteAbility(el){
+      setInput({
+          ...input,
+          abilities : input.abilities.filter(occ => occ !== el)
+      })
+    }
+    function handleDeleteMove(el){
+      setInput({
+          ...input,
+          moves : input.moves.filter(occ => occ !== el)
+      })
+    }
 
-    function handleSelect(e){
+    function handleSelectType(e){
         if (input.types.includes(e.target.value)) {
             return alert('You have already selected that type ⚠')
         }
-        if (input.types.length === 7) {
-            return alert("limit 7 Types ⚠");
+        if (input.types.length === 3) {
+            return alert("limit 3 Types ⚠");
           } 
         else {
             setInput({
@@ -106,6 +133,39 @@ function CreatePokemon(){
             console.log("ok?", input.types ) 
         } 
         } 
+
+    function handleSelectAbility(e){
+          if (input.abilities.includes(e.target.value)) {
+              return alert('You have already selected that ability ⚠')
+          }
+          if (input.abilities.length === 3) {
+              return alert("limit 3 Types ⚠");
+            } 
+          else {
+              setInput({
+                  ...input,
+                  abilities : [...input.abilities,e.target.value] 
+              })
+              console.log("ok?", input.abilities ) 
+          } 
+          } 
+
+    function handleSelectMoves(e){
+            if (input.moves.includes(e.target.value)) {
+                return alert('You have already selected that move ⚠')
+            }
+            if (input.moves.length === 3) {
+                return alert("limit 3 move ⚠");
+              } 
+            else {
+                setInput({
+                    ...input,
+                    moves : [...input.moves,e.target.value] 
+                })
+                console.log("ok?", input.moves ) 
+            } 
+            } 
+  
 
     function handleSubmit(e){
         const max = 15
@@ -134,6 +194,14 @@ function CreatePokemon(){
             e.preventDefault()
             return alert ("the attack cannot be less than 1 or greater than 100 ❌")
         }
+        else if (!input.specialAttack) {
+          e.preventDefault()
+          return alert("special Attack need a number!❌");
+        }
+        else if (input.specialAttack < 1 && input.specialAttack > 200){
+          e.preventDefault()
+          return alert ("the special Attack cannot be less than 1 or greater than 200 ❌")
+        }
         else if (!input.defense) {
             e.preventDefault()
             return alert("defense need a number!❌");
@@ -141,6 +209,14 @@ function CreatePokemon(){
         else if (input.defense < 1 && input.defense > 100){
             e.preventDefault()
             return alert ("the defense cannot be less than 1 or greater than 100 ❌")
+        }
+        else if (!input.specialDefense) {
+          e.preventDefault()
+          return alert("special Defense need a number!❌");
+        }
+        else if (input.specialDefense < 1 && input.specialDefense > 200){
+          e.preventDefault()
+          return alert ("the special Defense cannot be less than 1 or greater than 200 ❌")
         }
         else if (!input.speed) {
             e.preventDefault()
@@ -185,15 +261,19 @@ function CreatePokemon(){
             dispatch(postPokemon(input))
             alert('¡Pokemon created successfully! ✔')
             setInput({
-                name: "",
-                hp: "",
-                attack: "",
-                defense: "",
-                speed: "",
-                height: "",
-                weight: "",
-                image : "",
-                types : [],
+              name: "",
+              hp: "",
+              attack: "",
+              specialAttack: "",
+              defense: "",
+              specialDefense: "",
+              speed: "",
+              height: "",
+              weight: "",
+              image : "",
+              types : [],
+              abilities : [],
+              moves : [],
             })
             history.push('/home')
         }
@@ -203,15 +283,19 @@ function CreatePokemon(){
     const handleCancel = () => {
         if(window.confirm('Are you sure you want to cancel?')){
           setInput({
-                  name: "",
-                  hp: "",
-                  attack: "",
-                  defense: "",
-                  speed: "",
-                  height: "",
-                  weight: "",
-                  image : "",
-                  types : [],
+            name: "",
+            hp: "",
+            attack: "",
+            specialAttack: "",
+            defense: "",
+            specialDefense: "",
+            speed: "",
+            height: "",
+            weight: "",
+            image : "",
+            types : [],
+            abilities : [],
+            moves : [],
           })
           
           setErrors({})
@@ -222,7 +306,7 @@ function CreatePokemon(){
       
     return(
         <div>
-            <Link to= '/home'><button className={styles.button} type="button" onClick={handleCancel}></button></Link>
+            <Link to= '/home'><button className={styles.button} type="button" onClick={handleCancel}>HOME</button></Link>
             <div>
             <h1 className={styles.text}>CREATE YOUR POKEMON!</h1>
             <form onSubmit={(e) => handleSubmit(e)}>
@@ -271,6 +355,23 @@ function CreatePokemon(){
                     )}
                 </div>
                 <div>
+                  <label>SPECIAL ATTACK</label>
+                  <input 
+                    type="range"
+                    name="specialAttack"
+                    id="specialAttack"
+                    min={1}
+                    max={200}
+                    value={input.specialAttack || 10}
+                   onChange={(e) => handleChange(e)}/>
+                   {errors.specialAttack && (
+                        <p className="error">{errors.specialAttack}</p>
+                    )}
+                     <div className="value">
+                    <span>{input.specialAttack ? input.specialAttack : 10}</span>
+                  </div>
+                </div>
+                <div>
                   <label>DEFENSE</label>
                   <input type="number"
                    value={input.defense}
@@ -283,6 +384,23 @@ function CreatePokemon(){
                    {errors.defense && (
                         <p className="error">{errors.defense}</p>
                     )}
+                </div>
+                <div>
+                  <label>SPECIAL DEFENSE</label>
+                  <input 
+                    type="range"
+                    name="specialDefense"
+                    id="specialDefense"
+                    min={1}
+                    max={100}
+                    value={input.specialDefense || 10}
+                   onChange={(e) => handleChange(e)}/>
+                   {errors.specialDefense && (
+                        <p className="error">{errors.specialDefense}</p>
+                    )}
+                     <div className="value">
+                    <span>{input.specialDefense ? input.specialDefense : 10}</span>
+                  </div>
                 </div>
                 <div>
                   <label>SPEED</label>
@@ -338,21 +456,46 @@ function CreatePokemon(){
                         <p className="error">{errors.image}</p>
                     )}
                   </div>
-                <select className={styles.text} onChange={(e) => handleSelect(e)}>
+                <select className={styles.text} onChange={(e) => handleSelectType(e)}>
                 <option value="" hidden name="types" >Select types</option>
                     {types && types?.map((el, i) =>{
                       return (
                       <option key={el.id + i} value={el.name}>{el.name}</option>)
                         })}
                 </select>
-                <ul>{input.types.map(el => el + ",")}</ul>
+                <select className={styles.text} onChange={(e) => handleSelectAbility(e)}>
+                <option value="" hidden name="abilities" >Select abilities</option>
+                    {abilities && abilities?.map((el, i) =>{
+                      return (
+                      <option key={el.id + i} value={el.name}>{el.name}</option>)
+                        })}
+                </select>
+                <select className={styles.text} onChange={(e) => handleSelectMoves(e)}>
+                <option value="" hidden name="moves" >Select moves</option>
+                    {moves && moves?.map((el, i) =>{
+                      return (
+                      <option key={el.id + i} value={el.name}>{el.name}</option>)
+                        })}
+                </select>
                 <button className={styles.text} type='submit'>CREATE POKEMON</button>
             </form>
             </div>
             {input.types.map(el => 
                 <div key={el} className={styles.delete}>
                     <p key={el}>{el}</p>
-                    <button className={styles.x} onClick={() => handleDelete(el)}>x</button>
+                    <button className={styles.x} onClick={() => handleDeleteType(el)}>x</button>
+                </div>
+            )}
+             {input.abilities.map(el => 
+                <div key={el} className={styles.delete}>
+                    <p key={el}>{el}</p>
+                    <button className={styles.x} onClick={() => handleDeleteAbility(el)}>x</button>
+                </div>
+            )}
+            {input.moves.map(el => 
+                <div key={el} className={styles.delete}>
+                    <p key={el}>{el}</p>
+                    <button className={styles.x} onClick={() => handleDeleteMove(el)}>x</button>
                 </div>
             )}
         </div>

@@ -1,6 +1,8 @@
 import{
     GET_ALL_POKEMONS,
     GET_TYPES,
+    GET_ABILITY,
+    GET_MOVE,
     GET_NAME_POKEMON,
     FILTER_CREATED,
     FILTER_BY_TYPES,
@@ -23,6 +25,8 @@ const initialState = {
     pokemons: [],
     AllPokemons: [],
     types: [],
+    ability: [],
+    move: [],
     detail: []
 }
 
@@ -38,6 +42,16 @@ function rootReducer(state = initialState, action){
             return{
                 ...state,
                 types: action.payload
+            }
+        case GET_ABILITY:
+            return{
+                ...state,
+                ability: action.payload
+                }
+        case GET_MOVE:
+            return{
+                ...state,
+                move: action.payload
             }
         case GET_NAME_POKEMON:
             return{

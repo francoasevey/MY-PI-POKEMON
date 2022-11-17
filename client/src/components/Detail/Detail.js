@@ -85,7 +85,9 @@ export default function Detail (){
                    <img className={styles.image} src= {myPokemons[0].image? myPokemons[0].image : myPokemons[0].image} alt="not found" width="300px" height="250px" />
                    <h2 className={styles.text}>HP: {myPokemons[0].hp}</h2>  
                    <h2 className={styles.text}>ATTACK: {myPokemons[0].attack}</h2>
+                   <h2 className={styles.text}>SPECIAL ATTACK: {myPokemons[0].specialAttack}</h2>
                    <h2 className={styles.text}>DEFENSE: {myPokemons[0].defense}</h2>
+                   <h2 className={styles.text}>SPECIAL DEFENSE: {myPokemons[0].specialDefense}</h2>
                    <h2 className={styles.text}>SPEED: {myPokemons[0].speed}⚡</h2>
                    <h2 className={styles.text}>HEIGHT: {myPokemons[0].height}📏</h2>
                    <h2>WEIGHT: {myPokemons[0].weight}</h2>
