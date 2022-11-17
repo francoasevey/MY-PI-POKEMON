@@ -29,7 +29,7 @@ const getApiInfo = async () =>{
           image: el.sprites.other.home.front_default,
           types: el.types.map((e) => e.type.name),
           abilities: el.abilities.map((e) => e.ability.name),
-          //moves: el.moves.map((e) => e.move.name)
+          moves: el.moves.slice(0,5).map((e) => e.move.name)
         };
       });
       return apiInfo;

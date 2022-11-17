@@ -92,6 +92,8 @@ export default function Detail (){
                    <h2 className={styles.text}>HEIGHT: {myPokemons[0].height}📏</h2>
                    <h2>WEIGHT: {myPokemons[0].weight}</h2>
                    <h2>TYPES: {myPokemons[0].types.map((el) => el.name || el) + (", ")}</h2>
+                   <h2>ABILITIES: {myPokemons[0].abilities.map((el) => el.name || el) + (", ")}</h2>
+                   <h2>MOVES: {myPokemons[0].moves.map((el) => el.name || el) + (", ")}</h2>
                    {myPokemons[0].created && (
                     <div className={styles.buttons}>
                       <Link

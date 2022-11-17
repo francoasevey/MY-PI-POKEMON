@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react";
-import {Link, useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import { postPokemon,getTypes,getAbility,getMove} from '../../redux/Actions/index';
 import { useDispatch, useSelector } from "react-redux";
 import styles from '../CreatePokemon/CreatePokemon.module.css'
@@ -15,16 +15,15 @@ function validate({
     height,
     weight,
     image,
-    types
+    types,
+    abilities,
+    moves
 })
 {
     let errors = {} ;
     if (!/^[a-zA-Z\s]*$/.test(name)) {
         errors.name = <b>Characters are not allowed ❌</b>;
       }
-      //if (!/^(^[1-9]$|^[1-9]$)?$/.test(difficulty)) {
-        //errors.difficulty = <b>the health score cannot be less than 1 or greater than 5 ❌</b>
-      //}
     if (!/^(^[1-9]$|^[0-9]{0,2}$|^(100)$)?$/.test(hp)) {
         errors.hp = <b>the hp cannot be less than 1 or greater than 100 ❌</b>
       }
@@ -54,6 +53,12 @@ function validate({
      }
     if (!types.length) {
         errors.types = <b> choose at least one type ❌</b>;
+      }
+    if (!abilities.length) {
+        errors.abilities = <b> choose at least one ability ❌</b>;
+      }
+    if (!moves.length) {
+        errors.moves = <b> choose at least one move ❌</b>;
       }
     
     return errors;
@@ -246,6 +251,14 @@ function CreatePokemon(){
             e.preventDefault()
             return alert("You need to add at least one Type for the Pokemon ❌")
         }
+        else if(!input.abilities.length){
+          e.preventDefault()
+          return alert("You need to add at least one Ability for the Pokemon ❌")
+        }
+        else if(!input.moves.length){
+        e.preventDefault()
+        return alert("You need to add at least one Move for the Pokemon ❌")
+        }
         else if(!input.image.includes("https://") && !input.image.includes("http://")){
             e.preventDefault()
             return alert ("Only Url with https or http ❌")}
@@ -281,32 +294,13 @@ function CreatePokemon(){
     }
 
     const handleCancel = () => {
-        if(window.confirm('Are you sure you want to cancel?')){
-          setInput({
-            name: "",
-            hp: "",
-            attack: "",
-            specialAttack: "",
-            defense: "",
-            specialDefense: "",
-            speed: "",
-            height: "",
-            weight: "",
-            image : "",
-            types : [],
-            abilities : [],
-            moves : [],
-          })
-          
-          setErrors({})
-        } else {
-          return;
-        }
+        if(window.confirm('Are you sure you want to cancel?'))
+          history.push('/home')
       }
       
     return(
         <div>
-            <Link to= '/home'><button className={styles.button} type="button" onClick={handleCancel}>HOME</button></Link>
+            <button className={styles.button} type="button" onClick={handleCancel}>HOME</button>
             <div>
             <h1 className={styles.text}>CREATE YOUR POKEMON!</h1>
             <form onSubmit={(e) => handleSubmit(e)}>

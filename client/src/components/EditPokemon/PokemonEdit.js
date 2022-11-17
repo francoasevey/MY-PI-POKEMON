@@ -1,36 +1,43 @@
 import React,{useState,useEffect} from "react";
 import {Link, useHistory,useParams} from 'react-router-dom';
-import { editPokemon,getTypes,getDetailPokemons} from '../../redux/Actions/index';
+import { editPokemon,getTypes,getDetailPokemons,getAbility,getMove} from '../../redux/Actions/index';
 import { useDispatch, useSelector } from "react-redux";
 import styles from '../EditPokemon/PokemonEdit.module.css'
 
 function validate({
-    name,
-    hp,
-    attack,
-    defense,
-    speed,
-    height,
-    weight,
-    image,
-    types
+  name,
+  hp,
+  attack,
+  specialAttack,
+  defense,
+  specialDefense,
+  speed,
+  height,
+  weight,
+  image,
+  types,
+  abilities,
+  moves
 })
 {
     let errors = {} ;
     if (!/^[a-zA-Z\s]*$/.test(name)) {
         errors.name = <b>Characters are not allowed ❌</b>;
       }
-      //if (!/^(^[1-9]$|^[1-9]$)?$/.test(difficulty)) {
-        //errors.difficulty = <b>the health score cannot be less than 1 or greater than 5 ❌</b>
-      //}
     if (!/^(^[1-9]$|^[0-9]{0,2}$|^(100)$)?$/.test(hp)) {
         errors.hp = <b>the hp cannot be less than 1 or greater than 100 ❌</b>
       }
     if (!/^(^[1-9]$|^[0-9]{0,2}$|^(100)$)?$/.test(attack)) {
         errors.attack = <b>the attack cannot be less than 1 or greater than 100 ❌</b>
       }
+    if (!/^(^[1-9]$|^[0-9][0-9]{0,2}$|^(200)$)?$/.test(specialAttack)) {
+        errors.specialAttack = <b>the special Attack cannot be less than 1 or greater than 200 ❌</b>
+      }
     if (!/^(^[1-9]$|^[0-9]{0,2}$|^(100)$)?$/.test(defense)) {
         errors.defense = <b>the defense cannot be less than 1 or greater than 100 ❌</b>
+      }
+    if (!/^(^[1-9]$|^[0-9][0-9]{0,2}$|^(200)$)?$/.test(specialDefense)) {
+        errors.specialDefense = <b>the special Attack cannot be less than 1 or greater than 200 ❌</b>
       }
     if (!/^(^[1-9]$|^[0-9]{0,2}$|^(100)$)?$/.test(speed)) {
         errors.speed = <b>the speed cannot be less than 1 or greater than 100 ❌</b>
@@ -47,6 +54,12 @@ function validate({
     if (!types.length) {
         errors.types = <b> choose at least one type ❌</b>;
       }
+    if (!abilities.length) {
+        errors.abilities = <b> choose at least one ability ❌</b>;
+      }
+    if (!moves.length) {
+        errors.moves = <b> choose at least one move ❌</b>;
+      }
     
     return errors;
 };
@@ -56,24 +69,30 @@ function PokemonEdit(){
     const { id } = useParams();
     const history = useHistory()
     const pokemons = useSelector((state) => state.pokemons)
-    //const myPokemons = useSelector((state) => state.detail);
+    const abilities = useSelector((state) => state.ability)
+    const moves = useSelector((state) => state.move)
     const types = useSelector((state) => state.types)
     const [errors,setErrors] = useState({});
     const [input,setInput] = useState({
-        name: "",
-        hp: "",
-        attack: "",
-        defense: "",
-        speed: "",
-        height: "",
-        weight: "",
-        image : "",
-        types : [],
+      name: "",
+      hp: "",
+      attack: "",
+      specialAttack: "",
+      defense: "",
+      specialDefense: "",
+      speed: "",
+      height: "",
+      weight: "",
+      image : "",
+      types : [],
+      abilities : [],
+      moves : [],
     });
     useEffect(() => {
         dispatch(getTypes());
         dispatch(getDetailPokemons(id));
-        //dispatch(getPokemons());
+        dispatch(getAbility());
+        dispatch(getMove());
     },[dispatch, pokemons.length, id]);
 
     /*useEffect(() => {
@@ -100,13 +119,25 @@ function PokemonEdit(){
             types : input.types.filter(occ => occ !== el)
         })
     }
+    function handleDeleteAbility(el){
+      setInput({
+          ...input,
+          abilities : input.abilities.filter(occ => occ !== el)
+      })
+    }
+    function handleDeleteMove(el){
+      setInput({
+          ...input,
+          moves : input.moves.filter(occ => occ !== el)
+      })
+    }
 
     function handleSelect(e){
         if (input.types.includes(e.target.value)) {
             return alert('You have already selected that type ⚠')
         }
-        if (input.types.length === 7) {
-            return alert("limit 7 Types ⚠");
+        if (input.types.length === 3) {
+            return alert("limit 3 Types ⚠");
           } 
         else {
             setInput({
@@ -116,6 +147,37 @@ function PokemonEdit(){
             console.log("ok?", input.types ) 
         } 
         } 
+    function handleSelectAbility(e){
+          if (input.abilities.includes(e.target.value)) {
+              return alert('You have already selected that ability ⚠')
+          }
+          if (input.abilities.length === 3) {
+              return alert("limit 3 Types ⚠");
+            } 
+          else {
+              setInput({
+                  ...input,
+                  abilities : [...input.abilities,e.target.value] 
+              })
+              console.log("ok?", input.abilities ) 
+          } 
+          } 
+
+    function handleSelectMoves(e){
+            if (input.moves.includes(e.target.value)) {
+                return alert('You have already selected that move ⚠')
+            }
+            if (input.moves.length === 3) {
+                return alert("limit 3 move ⚠");
+              } 
+            else {
+                setInput({
+                    ...input,
+                    moves : [...input.moves,e.target.value] 
+                })
+                console.log("ok?", input.moves ) 
+            } 
+            } 
 
     function handleSubmit(e){
         const max = 15
@@ -144,6 +206,14 @@ function PokemonEdit(){
             e.preventDefault()
             return alert ("the attack cannot be less than 1 or greater than 100 ❌")
         }
+        else if (!input.specialAttack) {
+          e.preventDefault()
+          return alert("special Attack need a number!❌");
+        }
+        else if (input.specialAttack < 1 && input.specialAttack > 200){
+          e.preventDefault()
+          return alert ("the special Attack cannot be less than 1 or greater than 200 ❌")
+        }
         else if (!input.defense) {
             e.preventDefault()
             return alert("defense need a number!❌");
@@ -151,6 +221,14 @@ function PokemonEdit(){
         else if (input.defense < 1 && input.defense > 100){
             e.preventDefault()
             return alert ("the defense cannot be less than 1 or greater than 100 ❌")
+        }
+        else if (!input.specialDefense) {
+          e.preventDefault()
+          return alert("special Defense need a number!❌");
+        }
+        else if (input.specialDefense < 1 && input.specialDefense > 200){
+          e.preventDefault()
+          return alert ("the special Defense cannot be less than 1 or greater than 200 ❌")
         }
         else if (!input.speed) {
             e.preventDefault()
@@ -180,6 +258,14 @@ function PokemonEdit(){
             e.preventDefault()
             return alert("You need to add at least one Type for the Pokemon ❌")
         }
+        else if(!input.abilities.length){
+          e.preventDefault()
+          return alert("You need to add at least one Ability for the Pokemon ❌")
+        }
+        else if(!input.moves.length){
+        e.preventDefault()
+        return alert("You need to add at least one Move for the Pokemon ❌")
+        }
         else if(!input.image.includes("https://") && !input.image.includes("http://")){
             e.preventDefault()
             return alert ("Only Url with https or http ❌")}
@@ -195,47 +281,37 @@ function PokemonEdit(){
             dispatch(editPokemon(id,input))
             alert('¡Pokemon edit successfully! ✔')
             setInput({
-                name: "",
-                hp: "",
-                attack: "",
-                defense: "",
-                speed: "",
-                height: "",
-                weight: "",
-                image : "",
-                types : [],
+              name: "",
+              hp: "",
+              attack: "",
+              specialAttack: "",
+              defense: "",
+              specialDefense: "",
+              speed: "",
+              height: "",
+              weight: "",
+              image : "",
+              types : [],
+              abilities : [],
+              moves : [],
             })
             history.push('/home');
             dispatch(getDetailPokemons(id));
         }
         }
     }
+    
     const handleCancel = () => {
-      if(window.confirm('Are you sure you want to cancel?')){
-        setInput({
-                name: "",
-                hp: "",
-                attack: "",
-                defense: "",
-                speed: "",
-                height: "",
-                weight: "",
-                image : "",
-                types : [],
-        })
-        
-        setErrors({})
-      } else {
-        return;
-      }
+      if(window.confirm('Are you sure you want to cancel?'))
+        history.push(`/Detail/${id}`)
     }
 
     return(
         <div>
-            <Link to= '/home'><button className={styles.button}></button></Link>
-            <Link to={`/Detail/${id}`}>
+            <Link to= '/home'><button className={styles.button}>HOME</button></Link>
+            
             <button className={styles.buttonHome} type="button" onClick={handleCancel}>Cancel</button>
-            </Link>
+            
             <div>
             <h1 className={styles.text}>EDIT YOUR POKEMON!</h1>
             <form onSubmit={(e) => handleSubmit(e)}>
@@ -284,6 +360,23 @@ function PokemonEdit(){
                     )}
                 </div>
                 <div>
+                  <label>SPECIAL ATTACK</label>
+                  <input 
+                    type="range"
+                    name="specialAttack"
+                    id="specialAttack"
+                    min={1}
+                    max={200}
+                    value={input.specialAttack || 10}
+                   onChange={(e) => handleChange(e)}/>
+                   {errors.specialAttack && (
+                        <p className="error">{errors.specialAttack}</p>
+                    )}
+                     <div className="value">
+                    <span>{input.specialAttack ? input.specialAttack : 10}</span>
+                  </div>
+                </div>
+                <div>
                   <label>DEFENSE</label>
                   <input type="number"
                    value={input.defense}
@@ -296,6 +389,23 @@ function PokemonEdit(){
                    {errors.defense && (
                         <p className="error">{errors.defense}</p>
                     )}
+                </div>
+                <div>
+                  <label>SPECIAL DEFENSE</label>
+                  <input 
+                    type="range"
+                    name="specialDefense"
+                    id="specialDefense"
+                    min={1}
+                    max={100}
+                    value={input.specialDefense || 10}
+                   onChange={(e) => handleChange(e)}/>
+                   {errors.specialDefense && (
+                        <p className="error">{errors.specialDefense}</p>
+                    )}
+                     <div className="value">
+                    <span>{input.specialDefense ? input.specialDefense : 10}</span>
+                  </div>
                 </div>
                 <div>
                   <label>SPEED</label>
@@ -360,6 +470,20 @@ function PokemonEdit(){
                       );
                     })}
                   </select>
+                  <select className={styles.text} onChange={(e) => handleSelectAbility(e)}>
+                <option value="" hidden name="abilities" >Select abilities</option>
+                    {abilities && abilities?.map((el, i) =>{
+                      return (
+                      <option key={el.id + i} value={el.name}>{el.name}</option>)
+                        })}
+                </select>
+                <select className={styles.text} onChange={(e) => handleSelectMoves(e)}>
+                <option value="" hidden name="moves" >Select moves</option>
+                    {moves && moves?.map((el, i) =>{
+                      return (
+                      <option key={el.id + i} value={el.name}>{el.name}</option>)
+                        })}
+                </select>
                 <button className={styles.text} type='submit'>UPDATE</button>
             </form>
             </div>
@@ -371,6 +495,18 @@ function PokemonEdit(){
                         </ul>
                       );
                     })}
+            {input.abilities.map(el => 
+                <div key={el} className={styles.delete}>
+                    <p key={el}>{el}</p>
+                    <button className={styles.x} onClick={() => handleDeleteAbility(el)}>x</button>
+                </div>
+            )}
+            {input.moves.map(el => 
+                <div key={el} className={styles.delete}>
+                    <p key={el}>{el}</p>
+                    <button className={styles.x} onClick={() => handleDeleteMove(el)}>x</button>
+                </div>
+            )}
         </div>
     )
 }
