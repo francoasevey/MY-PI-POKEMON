@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const axios = require('axios');
-const { Pokemon, Type} = require('../db');
+const { Pokemon, Type, Ability, Move} = require('../db');
 const router = Router();
 const { getAllPokemons, getDbInfo } = require("../controllers/GetPokemons")
 
@@ -44,13 +44,29 @@ router.get('/:id', async(req, res) => {
             }
             else{
                 let pokemonFound = await Pokemon.findByPk(id, {
-                    include: [{
-                        model: Type,
-                        attributes: ['name'],
-                        through: {
-                            attributes: [],
-                        }
-                    }]
+                  include: [
+                    {
+                      model: Type,
+                      attributes: ["name"],
+                      through: {
+                          attributes: [],
+                      }
+                    },
+                    {
+                      model: Ability,
+                      attributes: ["name"],
+                      through: {
+                          attributes: [],
+                      }
+                    },
+                    {
+                      model: Move,
+                      attributes: ["name"],
+                      through: {
+                          attributes: [],
+                     }
+                    }
+                    ],
                 })
                 const array = []
                 array.push(pokemonFound)
@@ -68,12 +84,16 @@ router.post('/',async (req,res, next) =>{
         name,
         hp,
         attack,
+        specialAttack,
+        specialDefense,
         defense,
         speed,
         height,
         weight,
         image,
         types,
+        abilities,
+        moves,
         created
     } = req.body;console.log(req.body)
     if (!name || !image || !hp || !attack || !defense ||!speed || !height || !weight || !types) {
@@ -84,7 +104,9 @@ router.post('/',async (req,res, next) =>{
         name,
         hp,
         attack,
+        specialAttack,
         defense,
+        specialDefense,
         speed,
         height,
         weight,
@@ -92,8 +114,14 @@ router.post('/',async (req,res, next) =>{
         created
     })
 
-    let pokemonDb = await Type.findAll({ where: { name: types } })
-    PokemonCreated.addType(pokemonDb)
+    let pokemonType = await Type.findAll({ where: { name: types } })
+    PokemonCreated.addType(pokemonType)
+
+    let pokemonAbility =  await Ability.findAll({ where: { name: abilities } })
+    PokemonCreated.addAbility(pokemonAbility)
+
+    let pokemonMove =  await Move.findAll({ where: { name: moves } })
+    PokemonCreated.addMove(pokemonMove)
     res.send('successfully created pokemon!')
 }
 } catch (error) {
@@ -123,12 +151,16 @@ router.delete("/delete/:id", async (req, res) => {
         name,
         hp,
         attack,
+        specialAttack,
+        specialDefense,
         defense,
         speed,
         height,
         weight,
         image,
         types,
+        abilities,
+        moves,
         created
       } = req.body;
       if (!name || !image || !hp || !attack || !defense ||!speed || !height || !weight || !types) {
@@ -138,23 +170,36 @@ router.delete("/delete/:id", async (req, res) => {
           const findPokemon = await Pokemon.findByPk(id);
           await findPokemon.update(
             {
-                name,
-                hp,
-                attack,
-                defense,
-                speed,
-                height,
-                weight,
-                image,
-                created
+              name,
+              hp,
+              attack,
+              specialAttack,
+              defense,
+              specialDefense,
+              speed,
+              height,
+              weight,
+              image,
+              created
             },
             { where: { id: id } }
           );
           const typeDB = await Type.findAll({
             where: { name: types },
           });
-  
           await findPokemon.setTypes(typeDB);
+
+          const abilitiesDB = await Ability.findAll({
+            where: { name: abilities },
+          });
+          await findPokemon.setAbilities(abilitiesDB);
+
+          const movesDB = await Move.findAll({
+            where: { name: moves },
+          });
+          await findPokemon.setMoves(movesDB);
+
+
           res.status(200).send("successfully modified pokemon!");
       }
     } catch (error) {

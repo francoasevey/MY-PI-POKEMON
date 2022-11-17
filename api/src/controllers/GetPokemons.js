@@ -1,10 +1,10 @@
 const axios = require('axios');
-const { Pokemon, Type} = require('../db');
+const { Pokemon, Type, Ability, Move} = require('../db');
 
 const getApiInfo = async () =>{
     try {
         const ApiUrl = await axios
-        .get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=12")
+        .get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=2")
         .then((data) => {
           return data.data.results;
         })
@@ -40,13 +40,29 @@ const getApiInfo = async () =>{
 const getDbInfo = async () => {
     try {
         const dbPokemons = await Pokemon.findAll({
-        include:{
-            model: Type,
-            attributes: ["name"],
-            through: {
-                attributes: [],
+          include: [
+            {
+              model: Type,
+              attributes: ["name"],
+              through: {
+                  attributes: [],
+              }
+            },
+            {
+              model: Ability,
+              attributes: ["name"],
+              through: {
+                  attributes: [],
+              }
+            },
+            {
+              model: Move,
+              attributes: ["name"],
+              through: {
+                  attributes: [],
+             }
             }
-        }
+            ],
     });
     return dbPokemons;
     
