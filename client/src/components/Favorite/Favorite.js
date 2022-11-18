@@ -20,7 +20,7 @@ export default function Favorites(){
     }
 
     return (
-        <>
+        <section>
         <div className={styles.firstContainer} >
                 
             <button className={styles.home} onClick={(e) => handleReload(e)} >HOME</button>
@@ -30,17 +30,17 @@ export default function Favorites(){
             <div>No hay FAVORITOS!... <Loader/> </div>
             : favorite.map(el => {
                 return (
-                    <div className={styles.mainContainer}>
+                    <div key={el.id} className={styles.mainContainer}>
                         <div className={styles.innerContainer}>
                     <Link className={styles.Link} to={`/Detail/` + el.id}> 
                     <img className={styles.image} src={el.image} alt="not found" width="300px" height="250px" />
                     <h3 className={styles.name}>{el.name} </h3></Link>
                     </div>
-                    <button tittle="Deleted Favorites" className={styles.botonDelete} onClick={(e) => {handleDelete(el)}}>X</button>
+                    <button tittle="Deleted Favorites" className={styles.botonDelete} onClick={(e) => {handleDelete(el)}}>❌</button>
                  </div>)
             })
         } 
         </div>
-        </>
+        </section>
     )
 }

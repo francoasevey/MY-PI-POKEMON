@@ -26,7 +26,7 @@ function Card({id,name,image,types,hp,attack,defense,speed,height,weight,add}) {
                 <div>
                 <h3 className={styles.p}>Types: {types[1] ? types[0] + " / " + types[1] : types[0]}</h3>
                 </div>
-                <h5 ><button title="Add to Favorites" className={styles.botonfavorites} onClick={(e) => handleClick(e) } >ADD</button></h5>
+                <h5 ><button title="Add to Favorites" className={styles.botonfavorites} onClick={(e) => handleClick(e) } >✅</button></h5>
             </div>
         )
     
