@@ -26,8 +26,8 @@ export default function Favorites(){
             <button className={styles.home} onClick={(e) => handleReload(e)} >HOME</button>
         <h1>Favorites</h1>
         {
-            (favorite ===!favorite)?
-            <div>No hay FAVORITOS!... <Loader/> </div>
+            (favorite.length ===0)?
+            <div>there are no favorites... <Loader/> </div>
             : favorite.map(el => {
                 return (
                     <div key={el.id} className={styles.mainContainer}>
