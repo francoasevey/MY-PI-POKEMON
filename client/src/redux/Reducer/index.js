@@ -6,6 +6,7 @@ import{
     GET_NAME_POKEMON,
     FILTER_CREATED,
     FILTER_BY_TYPES,
+    FILTER_BY_ABILITIES,
     FILTER_ABC,
     ORDEN_BY_ATTACK,
     ORDEN_BY_DEFENSE,
@@ -25,7 +26,7 @@ const initialState = {
     pokemons: [],
     AllPokemons: [],
     types: [],
-    ability: [],
+    abilities: [],
     move: [],
     detail: []
 }
@@ -46,7 +47,7 @@ function rootReducer(state = initialState, action){
         case GET_ABILITY:
             return{
                 ...state,
-                ability: action.payload
+                abilities: action.payload
                 }
         case GET_MOVE:
             return{
@@ -74,6 +75,14 @@ function rootReducer(state = initialState, action){
                 return {
                 ...state,
                 pokemons: typesFilter
+                }
+        case FILTER_BY_ABILITIES:
+                const Ability = state.AllPokemons
+                const abilityFilter = action.payload === 'none' ? Ability :
+                Ability.filter(el => el.abilities.includes(action.payload) || el.abilities.map((e) => e.name).includes(action.payload));
+                return {
+                ...state,
+                pokemons: abilityFilter
                 }
         case FILTER_ABC:
                 const SortedPokemonsABC = action.payload === 'A-Z' ? 

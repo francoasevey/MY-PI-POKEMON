@@ -69,7 +69,7 @@ function PokemonEdit(){
     const { id } = useParams();
     const history = useHistory()
     const pokemons = useSelector((state) => state.pokemons)
-    const abilities = useSelector((state) => state.ability)
+    const abilities = useSelector((state) => state.abilities)
     const moves = useSelector((state) => state.move)
     const types = useSelector((state) => state.types)
     const [errors,setErrors] = useState({});

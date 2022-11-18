@@ -68,7 +68,7 @@ function CreatePokemon(){
     const dispatch = useDispatch()
     const history = useHistory()
     const types = useSelector((state) => state.types)
-    const abilities = useSelector((state) => state.ability)
+    const abilities = useSelector((state) => state.abilities)
     const moves = useSelector((state) => state.move)
     const [errors,setErrors] = useState({});
     const [input,setInput] = useState({

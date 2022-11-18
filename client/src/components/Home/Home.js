@@ -2,13 +2,14 @@ import React from "react";
 import NavBar from "../NavBar/NavBar";
 import {useState , useEffect} from "react";
 import {useDispatch,useSelector} from "react-redux";
-import { getPokemons, getTypes } from "../../redux/Actions/index";
+import { getPokemons, getTypes, getAbility } from "../../redux/Actions/index";
 import Paginate from "../Paginate/Paginate";
 import SearchBar from "../SearchBar/SearchBar";
 //import styles from "../Home/Home.module.css";
 import Pokemons from "../Pokemons/AllPokemons";
 import FilterApiDb from "../Filter/FilterApiDb";
 import FilterType from "../Filter/FilterType";
+import FilterAbility from "../Filter/FilterByAbility";
 import FilterABC from "../Filter/FilterABC";
 import FilterByAttack from "../Filter/FilterByAttack";
 import FilterByDefense from "../Filter/FilterByDefense";
@@ -29,6 +30,7 @@ export default function Home(){
     }, [dispatch])
     useEffect(() => {
         dispatch(getTypes())
+        dispatch(getAbility())
     },[dispatch])
     const [,setOrder] = useState("");
 
@@ -88,6 +90,8 @@ export default function Home(){
             <SearchBar setToFirstPage={setToFirstPage}/>
             <FilterApiDb setToFirstPage={setToFirstPage}/>
             <FilterType setToFirstPage={setToFirstPage}/>
+            <FilterAbility setToFirstPage={setToFirstPage}/>
+
             <FilterABC setToFirstPage={setToFirstPage} setOrder={setOrder}/>
             <FilterByAttack setToFirstPage={setToFirstPage} setOrder={setOrder}/>
             <FilterByDefense setToFirstPage={setToFirstPage} setOrder={setOrder}/>

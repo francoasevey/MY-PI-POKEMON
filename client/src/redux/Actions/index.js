@@ -7,6 +7,7 @@ import{
     GET_NAME_POKEMON,
     FILTER_CREATED,
     FILTER_BY_TYPES,
+    FILTER_BY_ABILITIES,
     FILTER_ABC,
     ORDEN_BY_ATTACK,
     ORDEN_BY_DEFENSE,
@@ -99,9 +100,14 @@ export function filterCreated(payload){
      }
  }
  export function filterType(payload){
-    // console.log(payload)
      return{
          type: FILTER_BY_TYPES,
+         payload
+     }
+ }
+ export function filterAbility(payload){
+     return{
+         type: FILTER_BY_ABILITIES,
          payload
      }
  }
