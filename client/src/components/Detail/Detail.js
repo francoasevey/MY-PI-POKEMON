@@ -4,6 +4,7 @@ import {Link , useParams, useHistory} from 'react-router-dom';
 import {getDetailPokemons, cleanPokemonDetail,getPokemons,deletePokemon,prevCard,nextCard} from '../../redux/Actions/index';
 import { useDispatch,useSelector } from "react-redux";
 import Loader from "../Loader/Loader";
+import RandomPokemon from "../RandomPokemon/RandomPokemon";
 import styles from '../Detail/Detail.module.css'
 
 export default function Detail (){
@@ -76,6 +77,7 @@ export default function Detail (){
           >
             NEXT ▶➡
           </button>
+          <div><RandomPokemon/></div>
         </div>
             {
                myPokemons.length > 0 ?

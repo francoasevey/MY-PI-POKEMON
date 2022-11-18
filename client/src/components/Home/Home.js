@@ -17,6 +17,7 @@ import FilterByDefense from "../Filter/FilterByDefense";
 import FilterBySpeed from "../Filter/FilterBySpeed";
 import FilterByHeigth from "../Filter/FilterByHeigth";
 import FilterByWeigth from "../Filter/FilterByWeigth";
+import RandomPokemon from "../RandomPokemon/RandomPokemon";
 import Restar from "../Filter/Restar";
 
 export default function Home(){
@@ -87,6 +88,7 @@ export default function Home(){
     return(
         <div>
             <NavBar/>
+            <RandomPokemon/>
             <div>
             <SearchBar setToFirstPage={setToFirstPage}/>
             <FilterApiDb setToFirstPage={setToFirstPage}/>
