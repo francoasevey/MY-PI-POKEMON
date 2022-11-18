@@ -70,7 +70,7 @@ function PokemonEdit(){
     const history = useHistory()
     const pokemons = useSelector((state) => state.pokemons)
     const abilities = useSelector((state) => state.abilities)
-    const moves = useSelector((state) => state.move)
+    const moves = useSelector((state) => state.moves)
     const types = useSelector((state) => state.types)
     const [errors,setErrors] = useState({});
     const [input,setInput] = useState({

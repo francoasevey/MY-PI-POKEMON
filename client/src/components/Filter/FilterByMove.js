@@ -1,29 +1,29 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector} from "react-redux";
-import {filterType,getTypes} from "../../redux/Actions/index";
+import {filterMove,getMove} from "../../redux/Actions/index";
 import styles from "../Filter/Filter.module.css";
 
 
-const FilterType = ({ setToFirstPage}) => {
+const FilterMove = ({ setToFirstPage}) => {
     const dispatch = useDispatch();
-    const types = useSelector ((state) => state.types);
+    const move = useSelector ((state) => state.moves);
 
     useEffect(() => {
-        dispatch(getTypes());
-    },[dispatch])
+        dispatch(getMove());
+    },[dispatch]);
 
-    function handleFilterByType(e) {
+    function handleFilterByMove(e) {
         e.preventDefault();
-        dispatch(filterType(e.target.value));
+        dispatch(filterMove(e.target.value));
         setToFirstPage();
     }
     return(
         <div className={styles.selects}>
-         <select className={styles.select} onChange={e => handleFilterByType(e)}>
-                <option value='none'>Filter by Types:</option>
+         <select className={styles.select} onChange={e => handleFilterByMove(e)}>
+                <option value='none'>Filter by Move:</option>
                    {
-                      types && types.map(el => (
+                      move && move.map(el => (
                         <option value={el.name} key={el.id}>{el.name}</option>
                         ))
                     }
@@ -31,4 +31,4 @@ const FilterType = ({ setToFirstPage}) => {
     </div>
     )
 }
-export default FilterType;
+export default FilterMove;

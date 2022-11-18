@@ -10,6 +10,7 @@ import Pokemons from "../Pokemons/AllPokemons";
 import FilterApiDb from "../Filter/FilterApiDb";
 import FilterType from "../Filter/FilterType";
 import FilterAbility from "../Filter/FilterByAbility";
+import FilterMove from "../Filter/FilterByMove"
 import FilterABC from "../Filter/FilterABC";
 import FilterByAttack from "../Filter/FilterByAttack";
 import FilterByDefense from "../Filter/FilterByDefense";
@@ -91,7 +92,7 @@ export default function Home(){
             <FilterApiDb setToFirstPage={setToFirstPage}/>
             <FilterType setToFirstPage={setToFirstPage}/>
             <FilterAbility setToFirstPage={setToFirstPage}/>
-
+            <FilterMove setToFirstPage={setToFirstPage}/>
             <FilterABC setToFirstPage={setToFirstPage} setOrder={setOrder}/>
             <FilterByAttack setToFirstPage={setToFirstPage} setOrder={setOrder}/>
             <FilterByDefense setToFirstPage={setToFirstPage} setOrder={setOrder}/>

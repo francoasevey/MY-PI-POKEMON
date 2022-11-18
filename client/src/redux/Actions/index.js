@@ -8,6 +8,7 @@ import{
     FILTER_CREATED,
     FILTER_BY_TYPES,
     FILTER_BY_ABILITIES,
+    FILTER_BY_MOVES,
     FILTER_ABC,
     ORDEN_BY_ATTACK,
     ORDEN_BY_DEFENSE,
@@ -111,6 +112,12 @@ export function filterCreated(payload){
          payload
      }
  }
+ export function filterMove(payload){
+    return{
+        type: FILTER_BY_MOVES,
+        payload
+    }
+}
  export function orderByABC(payload){
     return{
         type: FILTER_ABC,
