@@ -20,7 +20,9 @@ import{
     EDIT_POKEMON,
     DELETE_POKEMON,
     PREV,
-    NEXT
+    NEXT,
+    FAVORITE,
+    DELETE_FAVORITE
 } from './TypeActions'
 
 export function getPokemons(){
@@ -235,3 +237,15 @@ export function editPokemon(id, PokeEdit) {
         }
     }
  }
+ export function Favorite(payload){
+    return{
+        type:FAVORITE,
+        payload
+    }
+}
+export function deleteFavorite(payload){
+    return{
+        type:DELETE_FAVORITE,
+        payload
+    }
+}

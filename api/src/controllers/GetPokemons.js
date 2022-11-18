@@ -4,7 +4,7 @@ const { Pokemon, Type, Ability, Move} = require('../db');
 const getApiInfo = async () =>{
     try {
         const ApiUrl = await axios
-        .get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=20")
+        .get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=2")
         .then((data) => {
           return data.data.results;
         })

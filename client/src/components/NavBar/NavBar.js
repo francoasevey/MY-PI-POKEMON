@@ -8,6 +8,7 @@ const NavBar = () => {
             <Link className={styles.filter} to="/CreatePokemon">CreatePokemon</Link>
             <Link className={styles.filter} to="/Home">Home</Link>
             <Link className={styles.filter} to="About">About</Link>
+            <Link className={styles.filter} to="Favorites">Favorites</Link>
         </div>
     )
 }

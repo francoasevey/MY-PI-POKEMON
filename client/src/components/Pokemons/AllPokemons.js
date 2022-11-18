@@ -48,6 +48,7 @@ const Pokemons = ({ pokemon }) => {
                 weight={el.weight}
                 height={el.height}
                 types={el.types.map((e) => (e.name ? e.name : e))}
+                add={el}
                 key={el.id}
                 />
                 </Link>

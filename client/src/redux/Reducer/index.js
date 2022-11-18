@@ -20,7 +20,9 @@ import{
     EDIT_POKEMON,
     DELETE_POKEMON,
     PREV,
-    NEXT
+    NEXT,
+    FAVORITE,
+    DELETE_FAVORITE
 } from '../Actions/TypeActions'
 
 const initialState = {
@@ -29,7 +31,8 @@ const initialState = {
     types: [],
     abilities: [],
     moves: [],
-    detail: []
+    detail: [],
+    favorites: [],
 }
 
 function rootReducer(state = initialState, action){
@@ -261,6 +264,18 @@ function rootReducer(state = initialState, action){
                 return {
                 ...state,
                 };
+        case FAVORITE: 
+                return{
+                ...state,
+                favorites: state.favorites.find((pokemon) => pokemon.id === action.payload.id) ? [...state.favorites] 
+                : [...state.favorites, action.payload]
+                 }
+                  
+        case DELETE_FAVORITE:
+                return{
+                ...state,
+                favorites: state.favorites.filter(pokemon => pokemon.id !== action.payload.id)
+            }
         default:
             return state
     }

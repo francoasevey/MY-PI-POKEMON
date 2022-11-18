@@ -20,3 +20,5 @@ export const EDIT_POKEMON = 'EDIT_POKEMON';
 export const DELETE_POKEMON = 'DELETE_POKEMON';
 export const PREV = 'PREV';
 export const NEXT = 'NEXT';
+export const FAVORITE = 'FAVORITE';
+export const DELETE_FAVORITE = 'DELETE_FAVORITE';
